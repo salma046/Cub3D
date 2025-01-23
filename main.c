@@ -149,33 +149,22 @@ int	is_empty(char *line)
 
 int	parse_texture(t_cub3d *game, int texture_type, int i)
 {
-	if (texture_type == 1)
+	char **textures[4];
+	char **my_texture;
+
+	textures[0] = &game->no_texture;
+	textures[1] = &game->so_texture;
+	textures[2] = &game->we_texture;
+	textures[3] = &game->ea_texture;
+	if (texture_type > 0 && texture_type < 5)
 	{
-		if (game->no_texture != NULL)
+		my_texture = textures[texture_type - 1];
+		if (*my_texture != NULL)
 			return (0);
 		else
-			game->no_texture = ft_substr(game->cub[i], 3, ft_strlen(game->cub[i]) - 3);
-	}
-	if (texture_type == 2)
-	{
-		if (game->so_texture != NULL)
-			return (0);
-		else
-			game->so_texture = ft_substr(game->cub[i], 3, ft_strlen(game->cub[i]) - 3);
-	}
-	if (texture_type == 3)
-	{
-		if (game->we_texture != NULL)
-			return (0);
-		else
-			game->we_texture = ft_substr(game->cub[i], 3, ft_strlen(game->cub[i]) - 3);
-	}
-	if (texture_type == 4)
-	{
-		if (game->ea_texture != NULL)
-			return (0);
-		else
-			game->ea_texture = ft_substr(game->cub[i], 3, ft_strlen(game->cub[i]) - 3);
+			*my_texture = ft_substr(game->cub[i], 3, ft_strlen(game->cub[i]) - 3);
+		printf("---%s\n", *my_texture);
+		// printf("---%s\n", game->no_texture);
 	}
 	return (1);
 }
@@ -225,7 +214,7 @@ int main(int ac, char *av[])
 	init_data(&game);
 	if (!split_my_elements(&game))
 		return_free_error("Invalid map!", &game);
-	printf("---- c is: %s\n", game.so_texture);
+	// printf("---- c is: %s\n", game.so_texture);
 	return_free_error("EVERY THING IS GoooooD\n", &game);
 	return (54);
     // if (check_textures(game) == 0)
