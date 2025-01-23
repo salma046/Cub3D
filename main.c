@@ -112,37 +112,71 @@ void    init_data(t_cub3d *game)
 
 int	is_not_map(char *line)
 {
-	if (line[0] == '1' || line[0] == '\0')
+	if (line[0] == '1')
 		return (1);
 	return (0);
 }
 
 int	is_a_texture(char *line)
 {
-	while(!is_not_map(line))
-	{
-		if(!ft_strncmp(line, "NO ", 3))
-			return(1);
-		else if(!ft_strncmp(line, "SO ", 3))
-			return(2);
-		else if(!ft_strncmp(line, "WE ", 3))
-			return(3);
-		else if(!ft_strncmp(line, "EA ", 3))
-			return(4);
-		else if(!ft_strncmp(line, "F ", 2))
-			return(5);
-		else if(!ft_strncmp(line, "C ", 2))
-			return(6);
-		else
-			return (0);
-	}
-	return (7);
+	if (!line)
+		return (0);
+	if(!ft_strncmp(line, "NO ", 3))
+		return(1);
+	else if(!ft_strncmp(line, "SO ", 3))
+		return(2);
+	else if(!ft_strncmp(line, "WE ", 3))
+		return(3);
+	else if(!ft_strncmp(line, "EA ", 3))
+		return(4);
+	else if(!ft_strncmp(line, "F ", 2))
+		return(5);
+	else if(!ft_strncmp(line, "C ", 2))
+		return(6);
+	else if (is_not_map(line) == 1)
+		return (7);
+	else
+		return (0);
 }
 
 int	is_empty(char *line)
 {
 	if(line[0] == '\n' && line[1] == '\0')
 		return (0);
+	return (1);
+}
+
+
+int	parse_texture(t_cub3d *game, int texture_type, int i)
+{
+	if (texture_type == 1)
+	{
+		if (game->no_texture != NULL)
+			return (0);
+		else
+			game->no_texture = ft_substr(game->cub[i], 3, ft_strlen(game->cub[i]) - 3);
+	}
+	if (texture_type == 2)
+	{
+		if (game->so_texture != NULL)
+			return (0);
+		else
+			game->so_texture = ft_substr(game->cub[i], 3, ft_strlen(game->cub[i]) - 3);
+	}
+	if (texture_type == 3)
+	{
+		if (game->we_texture != NULL)
+			return (0);
+		else
+			game->we_texture = ft_substr(game->cub[i], 3, ft_strlen(game->cub[i]) - 3);
+	}
+	if (texture_type == 4)
+	{
+		if (game->ea_texture != NULL)
+			return (0);
+		else
+			game->ea_texture = ft_substr(game->cub[i], 3, ft_strlen(game->cub[i]) - 3);
+	}
 	return (1);
 }
 
@@ -155,20 +189,25 @@ int	split_my_elements(t_cub3d *game)
 	read_cub = game->cub;
 	my_texture = 0;
 	i = 0;
+	if (!read_cub[i][0])
+		return (0);
 	while(read_cub[i])
 	{
-		printf("hello world\n");
-		while(!is_empty(read_cub[i]))
+		while(read_cub[i] && !is_empty(read_cub[i]))
 			i++;
 		my_texture = is_a_texture(read_cub[i]);
 		if (!my_texture)
 			return_free_error("invalid map", game);
+		else if(my_texture > 0 && my_texture < 7)
+		{
+			if (parse_texture(game, my_texture, i) == 0)
+				return_free_error("Invalid textures!", game);
+		}
+		else
+			break;
 		i++;
-		// else if(my_texture == 7)
-		// 	return(fill_cub_map());
-		// else
-		// 	assign_cub_texture();
 	}
+	// return(fill_cub_map());
 	return (1);
 }
 
@@ -182,12 +221,11 @@ int main(int ac, char *av[])
         return_error("Cannot open file!");
     game.cub = read_file(av[1]);
 	if (!game.cub)
-		return_error("invalid map!");
+		return_error("Invalid map!");
 	init_data(&game);
 	if (!split_my_elements(&game))
-		return_free_error("invalid map!", &game);
+		return_free_error("Invalid map!", &game);
 	printf("---- c is: %s\n", game.so_texture);
-	printf("all good\n");
 	return_free_error("EVERY THING IS GoooooD\n", &game);
 	return (54);
     // if (check_textures(game) == 0)
