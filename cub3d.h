@@ -28,5 +28,6 @@ int     check_file_valid(char *file);
 int     return_error(char *error_str);
 int	    ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
+int     ft_my_atoi(const char *str);
 
 #endif

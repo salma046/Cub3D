@@ -19,6 +19,14 @@ int return_free_error(char *error_str, t_cub3d *game)
 		i++;
 	}
 	free(temp);
+	if (game->no_texture)
+		free(game->no_texture);
+	if (game->so_texture)
+		free(game->so_texture);
+	if (game->we_texture)
+		free(game->we_texture);
+	if (game->ea_texture)
+		free(game->ea_texture);
     printf("Error: %s\n", error_str);
     exit(0);
 }
@@ -146,26 +154,148 @@ int	is_empty(char *line)
 	return (1);
 }
 
+int	check_fc_empty(char *colorf, char *colorc)
+{
+	if (colorf != NULL)
+		return (1);
+	if (colorf != NULL)
+		return (2);
+	return (0);
+	
+}
+
+int parce_f_color(char *colorf, t_cub3d *game)
+{
+	int		i;
+	int		j;
+	int		count;
+	char	*my_color;
+	int		my_int;
+	
+	i = 0;
+	j = 0;
+	count = 0;
+	while(i < 3)
+	{
+		if (game->f_color[i] != -1)
+			return (0);
+		i++;
+	}
+	i = 0;
+	/// read colors;
+	while (colorf[count] != '\0' && i < 3)
+	{
+		j = 0;
+		while (colorf[i] && colorf[count] != ',')
+		{
+			my_color[j] == colorf[count];
+			count++;
+			j++;
+		}
+		my_color[j] = '\0';
+		my_int = ft_my_atoi(my_color);
+		if (my_int == -1)
+			return (free(colorf), 0);
+		game->f_color[i] = my_int;
+		i++;
+	}
+	if (colorf[count] == '\0' || i == 3)
+		return (1);
+}
+
+int parce_c_color(char *colorc, t_cub3d *game)
+{
+	int		i;
+	int		j;
+	int		count;
+	char	*my_color;
+	int		my_int;
+	
+	i = 0;
+	j = 0;
+	count = 0;
+	while(i < 3)
+	{
+		if (game->c_color[i] != -1)
+			return (0);
+		i++;
+	}
+	i = 0;
+	/// read colors;
+	while (colorc[count] != '\0' && i < 3)
+	{
+		j = 0;
+		while (colorc[i] && colorc[count] != ',')
+		{
+			my_color[j] == colorc[count];
+			count++;
+			j++;
+		}
+		my_color[j] = '\0';
+		my_int = ft_my_atoi(my_color);
+		if (my_int == -1)
+			return (free(colorc), 0);
+		game->c_color[i] = my_int;
+		i++;
+	}
+	if (colorc[count] == '\0' || i == 3)
+		return (1);
+}
+
+int	parse_fc_colors(char *colorf, char *colorc, t_cub3d *game)
+{
+	int		checker;
+
+	if (!colorf && !colorc)
+		return (1);
+	checker = check_fc_empty(colorf, colorc);
+	if (checker == 0)
+		return (-1);
+	if (checker == 1)
+	{
+		if (parce_f_color(colorf, game) == 0)
+			return (0);
+	}
+	if (checker == 2)
+	{
+		if (parce_c_color(colorc, game) == 0)
+			return (0);
+	}
+	
+	/// don't forget to free colorf-and-c
+	free(colorc);
+	free(colorf);
+	return (1);
+}
 
 int	parse_texture(t_cub3d *game, int texture_type, int i)
 {
-	char **textures[4];
-	char **my_texture;
+	char	**textures[6];
+	char	**my_texture;
+	char	*c_color = NULL;
+	char	*f_color = NULL;
+	int		start;
 
+	start = 3;
 	textures[0] = &game->no_texture;
 	textures[1] = &game->so_texture;
 	textures[2] = &game->we_texture;
 	textures[3] = &game->ea_texture;
-	if (texture_type > 0 && texture_type < 5)
+	textures[4] = &f_color;
+	textures[5] = &c_color;
+	if (texture_type > 0 && texture_type < 7)
 	{
+		if (texture_type > 4)
+			start = 2;
 		my_texture = textures[texture_type - 1];
 		if (*my_texture != NULL)
 			return (0);
 		else
-			*my_texture = ft_substr(game->cub[i], 3, ft_strlen(game->cub[i]) - 3);
+			*my_texture = ft_substr(game->cub[i], start, ft_strlen(game->cub[i]) - 3);
 		printf("---%s\n", *my_texture);
-		// printf("---%s\n", game->no_texture);
 	}
+	if (parse_fc_colors(f_color, c_color, game) == 0)
+		return (0);
 	return (1);
 }
 
@@ -195,6 +325,7 @@ int	split_my_elements(t_cub3d *game)
 		else
 			break;
 		i++;
+		// exit(65);
 	}
 	// return(fill_cub_map());
 	return (1);
@@ -212,7 +343,7 @@ int main(int ac, char *av[])
 	if (!game.cub)
 		return_error("Invalid map!");
 	init_data(&game);
-	if (!split_my_elements(&game))
+	if (!split_my_elements(&game))/// this function split the textures from the map and put each on the appropriate place
 		return_free_error("Invalid map!", &game);
 	// printf("---- c is: %s\n", game.so_texture);
 	return_free_error("EVERY THING IS GoooooD\n", &game);
