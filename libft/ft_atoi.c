@@ -6,7 +6,7 @@
 /*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 11:09:08 by salaoui           #+#    #+#             */
-/*   Updated: 2025/01/23 23:33:47 by salaoui          ###   ########.fr       */
+/*   Updated: 2025/01/24 10:56:15 by salaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	ft_my_atoi(const char *str)
 	i = 0;
 	sign = 1;
 	result = 0;
-	printf("--color as a char is: %s\n", str);
 	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
 	{
 		i++;
@@ -39,8 +38,7 @@ int	ft_my_atoi(const char *str)
 	{
 		i++;
 	}
-	if (str[i] && str[i] < '0' || str[i] > '9')
+	if (str[i] && (str[i] < '0' || str[i] > '9'))
 		return (-1);
-	printf("--color as a int is: %d\n", result);
 	return (result * sign);
 }

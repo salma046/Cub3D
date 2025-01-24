@@ -25,9 +25,14 @@ typedef struct s_cub3d
 
 
 int     check_file_valid(char *file);
+char	**read_file(char *file);
 int     return_error(char *error_str);
+int     return_free_error(char *error_str, t_cub3d *game);
 int	    ft_strncmp(const char *s1, const char *s2, size_t n);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
 int     ft_my_atoi(const char *str);
+int     split_my_elements(t_cub3d *game);
+int     fill_cub_map(t_cub3d *game, int i);
+int     parse_fc_colors(char *colorf, char *colorc, t_cub3d *game);
 
 #endif
