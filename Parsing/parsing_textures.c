@@ -8,13 +8,6 @@
 // c ---->6
 // map--->7
 
-int	is_empty(char *line)
-{
-	if(line[0] == '\n' && line[1] == '\0')
-		return (0);
-	return (1);
-}
-
 int	is_a_map(char *line)
 {
 	if (line[0] == '1')
@@ -24,7 +17,8 @@ int	is_a_map(char *line)
 
 int	is_a_texture(char *line)
 {
-	if (!line)
+	is_whitespaces(&line);
+	if (!line || line[0] == '\0')
 		return (0);
 	if(!ft_strncmp(line, "NO ", 3))
 		return(1);
@@ -52,7 +46,7 @@ int	parse_texture(t_cub3d *game, int texture_type, int i)
 	char	*f_color = NULL;
 	int		start;
 
-	start = 3;
+	start = ft_skipspace(game->cub[i]) + 3;
 	textures[0] = &game->no_texture;
 	textures[1] = &game->so_texture;
 	textures[2] = &game->we_texture;
@@ -62,7 +56,7 @@ int	parse_texture(t_cub3d *game, int texture_type, int i)
 	if (texture_type > 0 && texture_type < 7)
 	{
 		if (texture_type > 4)
-			start = 2;
+			start = ft_skipspace(game->cub[i]) + 2;
 		my_texture = textures[texture_type - 1];
 		if (*my_texture != NULL)
 			return (0);
@@ -90,7 +84,7 @@ int	split_my_elements(t_cub3d *game)
 	{
 		while(read_cub[i] && !is_empty(read_cub[i]))
 			i++;
-		
+		// exit(32);
 		my_texture = is_a_texture(read_cub[i]);
 		if (!my_texture)
 			return_free_error("invalid map", game);
