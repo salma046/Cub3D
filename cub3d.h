@@ -7,19 +7,30 @@
 #include "gnl/get_next_line.h"
 #include <mlx.h>
 
+
+typedef struct s_player
+{
+	int		player_x;
+	int		player_y;
+	char	dir_player;
+
+}	t_player;
+
+
 typedef struct s_cub3d
 {
-    char    *no_texture;
-    char    *so_texture;
-    char    *we_texture;
-    char    *ea_texture;
-    int     f_color[3];
+    char	*no_texture;
+    char	*so_texture;
+    char	*we_texture;
+    char	*ea_texture;
+    int		f_color[3];
     int		c_color[3];
-    char    **cub_map;
-    char    **cub;
-    int     map_heigh;
-    int     map_width;
-
+    char	**cub;
+    char	**cub_map;
+    char	**cub_copymap;
+    int		map_heigh;
+    int		map_width;
+    t_player	player;
 
 }   t_cub3d;
 
@@ -31,10 +42,12 @@ int     return_free_error(char *error_str, t_cub3d *game);
 int	    ft_strncmp(const char *s1, const char *s2, size_t n);
 void    is_whitespaces(char **line);
 int     ft_skipspace(char *line);
-int     ft_isspace(char c);
+int     ft_isspace(char c, int type);
 int     is_empty(char *line);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
 int     ft_my_atoi(const char *str);
+char	*ft_my_strjoin(char *s1, char *s2);
+void	*ft_memset(void *str, int c, size_t n);
 int     split_my_elements(t_cub3d *game);
 int     fill_cub_map(t_cub3d *game, int i);
 int     parse_fc_colors(char *colorf, char *colorc, t_cub3d *game);

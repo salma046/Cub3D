@@ -48,8 +48,9 @@ int	fill_cub_map(t_cub3d *game, int i)
 	j = 0;
 	if (is_all_textures_found(game) == 0)
 		return (0);
-	height = count_map_height(game->cub, i);	
-    game->cub_map = (char **)malloc((height + 1) * sizeof(char *));
+	height = count_map_height(game->cub, i);
+	game->cub_map = (char **)malloc((height + 1) * sizeof(char *));
+	game->map_heigh = height;
 	while(read_cub[i])
 		game->cub_map[j++] = ft_strdup(read_cub[i++]);
 	game->cub_map[j] = NULL;

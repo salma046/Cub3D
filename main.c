@@ -33,6 +33,12 @@ int return_free_error(char *error_str, t_cub3d *game)
 		free(game->cub_map[i++]);
 	}
 	free(game->cub_map);
+	i = 0;
+	while (game->cub_copymap && game->cub_copymap[i])
+	{
+		free(game->cub_copymap[i++]);
+	}
+	free(game->cub_copymap);
 	printf("Error: %s\n", error_str);
 	exit(0);
 }
@@ -63,7 +69,12 @@ int	check_for_player(t_cub3d *game)
 		{
 			if (read_cubmap[i][j] == 'N' || read_cubmap[i][j] == 'S' ||
 					read_cubmap[i][j] == 'W' || read_cubmap[i][j] == 'E')
+			{
+				game->player.player_x = i;
+				game->player.player_y = j;
+				game->player.dir_player = read_cubmap[i][j];
 				count++;
+			}
 			j++;
 		}
 		i++;
@@ -75,22 +86,161 @@ int	check_for_player(t_cub3d *game)
 	return (1);
 }
 
+int	check_one_in_edges(t_cub3d *game)
+{
+	char	**read_cubmap;
+	int		i;
+	int		j;
 
-// 	char **read_cubmap;
+	i = 0;
+	read_cubmap = game->cub_map;
+	while (read_cubmap[i])
+	{
+		j = 0;
+		while(read_cubmap[i] && !is_empty(read_cubmap[i]))
+		{
+			i++;
+			if (!read_cubmap[i])
+				return (1);
+		}
+		while (read_cubmap[i][j + 1] && ft_isspace(read_cubmap[i][j], 0))
+			j++;
+		if (read_cubmap[i][j] && read_cubmap[i][j] != '1')
+			return (0);
+		while (read_cubmap[i][j])
+		{
+			if (i == 0 || i == game->map_heigh - 1)
+			{
+				while (ft_isspace(read_cubmap[i][j], 1))
+					j++;
+				if (read_cubmap[i][j] != '\0' && read_cubmap[i][j] != '\n' && read_cubmap[i][j] != '1')
+					return (0);
+			}
+			j++;
+		}
+		if (read_cubmap[i][j - 1] == '\n' && read_cubmap[i][j - 2] != '1')
+			return (0);
+		i++;
+	}
+	return (1);
+}
 
-// 	read_cubmap = map;
-// 	int i = 0;
-// 	while(read_cubmap[i])
-// 	{
-// 		printf("%s", read_cubmap[i]);
-// 		i++;
-// 	}
+void	make_a_copy(t_cub3d *game)
+{
+	char **to_read;
+	int i;
+	int	largestline;
+
+	i = 0;
+	largestline = -1;
+	to_read = game->cub_map;
+	game->cub_copymap = (char **)malloc((game->map_heigh + 1) * sizeof(char *));
+	while (to_read[i])
+	{
+		if ((int )ft_strlen(to_read[i]) > largestline)
+			largestline = ft_strlen(to_read[i]);
+		game->cub_copymap[i] = ft_strdup(to_read[i]);
+		i++;
+	}
+	game->cub_copymap[i] = NULL;
+	game->map_width = largestline;
+}
+
+void	replace_empty_chars(t_cub3d *game)
+{
+	int		i;
+	int		curr_len;
+	char	**read_copy;
+	char	*fill_line;
+
+	read_copy = game->cub_copymap;
+	i = 0;
+	while (read_copy[i])
+	{
+		curr_len = ft_strlen(read_copy[i]);
+		if (curr_len < game->map_width)
+		{
+			fill_line = (char *)malloc((game->map_width - curr_len + 1) * sizeof(char));
+			if (!fill_line)
+				return;
+			ft_memset(fill_line, 'X', game->map_width - curr_len);
+			fill_line[game->map_width - curr_len] = '\0';
+			char *n_str = ft_my_strjoin(read_copy[i], fill_line);
+			free(read_copy[i]);
+			game->cub_copymap[i] = n_str;
+			free(fill_line);
+		}
+		else
+		{
+			if (read_copy[i][curr_len - 1] == '\n')
+			{
+				char *n_str = ft_substr(read_copy[i], 0, curr_len - 1);
+				free(read_copy[i]);
+				game->cub_copymap[i] = n_str;
+			}
+		}
+		printf("***%s\n", read_copy[i]);
+		i++;
+	}
+}
+
+int	check_zeros_enclosed(char **map, int map_height)
+{
+	int	i;
+	int	j;
+
+	// Loop through each row (excluding the edges)
+	for (i = 1; i < map_height - 1; i++) 
+	{
+		j = 1; // Start at the second column to avoid edges
+		while (map[i][j + 1] != '\0') // Check within bounds of the current row
+		{
+			if (map[i][j] == '0') // Found a walkable tile
+			{
+				// Ensure the adjacent tiles are valid
+				if (i - 1 < 0 || map[i - 1][j] != '1') // Top
+					return (0);
+				if (i + 1 >= map_height || map[i + 1][j] != '1') // Bottom
+					return (0);
+				if (j - 1 < 0 || map[i][j - 1] != '1') // Left
+					return (0);
+				if (j + 1 >= (int)ft_strlen(map[i]) || map[i][j + 1] != '1') // Right
+					return (0);
+			}
+			j++;
+		}
+	}
+	return (1);
+}
+
 
 int check_map(t_cub3d *game)
 {
 	// first check for only one player
 	// seconde check the map is surroudded by walls only if there is a spaces on the first and last edges
 	check_for_player(game);
+	if (check_one_in_edges(game) == 0)
+		return_free_error("NO ones on edges!", game);
+	//// check only valid caracters found 
+	make_a_copy(game);
+	replace_empty_chars(game);///// replace the empty with 'X' char and go directly to check edges around the 0's and space's and player as well
+	if (!check_zeros_enclosed((game->cub_copymap), game->map_heigh))
+		return_free_error("zeros are not correctly enclosed", game);
+	// int i = 0;
+	// char **readdd_copy;
+
+	// readdd_copy = game->cub_copymap;
+	// if (!game->cub_copymap[i])
+	// 	printf("it's nullllll\n");
+	// while (readdd_copy[i])
+	// {
+	// 	printf("*%s", readdd_copy[i]);
+	// 	i++;
+	// }
+	//// in this step check if the spaces are between 1ones on the map 
+	////last step
+	// if (can_exit_map_from_pos(game, 1, 1))
+	// 	return_free_error("can't exit map from pos", game);
 	return (1);
 }
 
@@ -109,6 +259,7 @@ void    init_data(t_cub3d *game)
 		i++;
 	}
 	game->cub_map = NULL;
+	game->cub_copymap = NULL;
 	game->map_heigh = 0;
 	game->map_width = 0;
 }
