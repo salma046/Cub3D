@@ -38,6 +38,13 @@ int	count_map_height(char **cub, int start)
 	return (count);
 }
 
+int	check_end_map(char *line)
+{
+	if (line[0] == '\n')
+		return (0);
+	return (1);
+}
+
 int	fill_cub_map(t_cub3d *game, int i)
 {
 	char	**read_cub;
@@ -51,8 +58,23 @@ int	fill_cub_map(t_cub3d *game, int i)
 	height = count_map_height(game->cub, i);
 	game->cub_map = (char **)malloc((height + 1) * sizeof(char *));
 	game->map_heigh = height;
-	while(read_cub[i])
+	while(read_cub[i] && check_end_map(read_cub[i]))
 		game->cub_map[j++] = ft_strdup(read_cub[i++]);
 	game->cub_map[j] = NULL;
+	while (read_cub[i] && !check_end_map(read_cub[i]))
+		i++;
+	if (read_cub[i])
+		return_free_error("Invalid Map!", game);
 	return (1);
+}
+
+void	parsing(t_cub3d *game)
+{
+	init_data(game);
+	if (!split_my_elements(game))
+		return_free_error("Invalid map!", game);
+	if (check_textures(game) == 0)
+		return_free_error("wrong textures!", game);
+	if (check_map(game) == 0)
+		return_free_error("map not valid!", game);
 }

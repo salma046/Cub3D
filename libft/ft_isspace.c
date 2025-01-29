@@ -6,7 +6,7 @@
 /*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 21:21:40 by salaoui           #+#    #+#             */
-/*   Updated: 2025/01/26 09:52:02 by salaoui          ###   ########.fr       */
+/*   Updated: 2025/01/29 21:40:10 by salaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,14 @@ void	is_whitespaces(char **line)
 		(*line)++;
 }
 
-int	ft_skipspace(char *line)
+int	ft_skipspace(char *line, int j)
 {
 	int	i;
 
 	i = 0;
+	while (line[i] != '\0' && ft_isspace(line[i], 0))
+		i++;
+	i += j;
 	while (line[i] != '\0' && ft_isspace(line[i], 0))
 		i++;
 	return (i);

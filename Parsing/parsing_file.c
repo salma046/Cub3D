@@ -68,3 +68,11 @@ int check_file_valid(char *file)
 	close(fd);
 	return (1);
 }
+
+void	check_file(int ac, char *file)
+{
+	if (ac != 2)
+		return_error("Arguments not valid!");
+	if (check_file_valid(file) == 0)
+		return_error("Cannot open file!");
+}

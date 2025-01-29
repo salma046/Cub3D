@@ -90,12 +90,20 @@ void    ft_joueur();
 /*Parsing*/
 
 int     check_file_valid(char *file);
+void	check_file(int ac, char *file);
+void    init_data(t_cub3d *game);
+void	parsing(t_cub3d *game);
+int     check_textures(t_cub3d *game);
+int     check_map(t_cub3d *game);
+int	    check_for_player(t_cub3d *game);
+int	    check_one_in_edges(t_cub3d *game);
+void	make_a_copy(t_cub3d *game);
 char	**read_file(char *file);
 int     return_error(char *error_str);
 int     return_free_error(char *error_str, t_cub3d *game);
 int	    ft_strncmp(const char *s1, const char *s2, size_t n);
 void    is_whitespaces(char **line);
-int     ft_skipspace(char *line);
+int     ft_skipspace(char *line, int j);
 int     ft_isspace(char c, int type);
 int     is_empty(char *line);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
