@@ -8,7 +8,7 @@
 #include <mlx.h>
 
 
-<<<<<<< HEAD
+
 typedef struct s_player
 {
 	int		player_x;
@@ -17,7 +17,7 @@ typedef struct s_player
 
 }	t_player;
 
-=======
+
 typedef enum s_enum
 {
     sude,
@@ -26,7 +26,7 @@ typedef enum s_enum
     lest,
 
 }   t_enum;
->>>>>>> refs/remotes/origin/main
+
 
 typedef struct s_cub3d
 {
@@ -80,6 +80,9 @@ typedef struct s_jeux
 
 int ft_start(t_jeux *jeux);
 int ft_mini_map(t_jeux *jeux);
+int ft_designe(int pst);
+void ft_put_pexel();
+void    ft_joueur();
 
 
 
