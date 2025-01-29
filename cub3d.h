@@ -8,6 +8,7 @@
 #include <mlx.h>
 
 
+<<<<<<< HEAD
 typedef struct s_player
 {
 	int		player_x;
@@ -16,6 +17,16 @@ typedef struct s_player
 
 }	t_player;
 
+=======
+typedef enum s_enum
+{
+    sude,
+    nord,
+    ouest,
+    lest,
+
+}   t_enum;
+>>>>>>> refs/remotes/origin/main
 
 typedef struct s_cub3d
 {
@@ -34,6 +45,46 @@ typedef struct s_cub3d
 
 }   t_cub3d;
 
+typedef struct s_jeux
+{
+    //la position de joueur dans la carte.
+    float x_pst;
+    float y_pst;
+    //les coordonnees de vision de camera,
+    float x_cam;
+    float y_cam;
+    //encore les coordonnees dechaque direction. 
+    float x_direct;
+    float y_direct;
+    //les coordonnees des ray de ratcasting
+    float x_ray;
+    float y_ray;
+    //chaine pour les donnees
+    char *str;
+    //pointeur de fenetre et mlx
+    void *win;
+    void *mlx;
+    /*
+    * il reste a faire :
+    * une structure de map."t_cube3d"
+    * une structure de mure.
+    * une structure de joueur. 
+    * une structure des ray .
+    * une structure d'image. 
+    */
+   t_cub3d cube;
+}t_jeux;
+
+
+////////////////////////////////////
+
+int ft_start(t_jeux *jeux);
+int ft_mini_map(t_jeux *jeux);
+
+
+
+////////////////////////////////////
+/*Parsing*/
 
 int     check_file_valid(char *file);
 char	**read_file(char *file);
