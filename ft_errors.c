@@ -39,6 +39,7 @@ int return_free_error(char *error_str, t_cub3d *game)
 		free(game->cub_copymap[i++]);
 	}
 	free(game->cub_copymap);
-	printf("Error: %s\n", error_str);
+	if (error_str[0] != '\0')
+		printf("Error: %s\n", error_str);
 	exit(0);
 }

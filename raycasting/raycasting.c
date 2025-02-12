@@ -1,21 +1,5 @@
 #include "../cub3d.h"
 
-// int touch(float x, float y, t_jeux *game)
-// {
-//     (void)x;
-//     (void)y;
-//     (void)game;
-
-//     // int grid_x = x / 1;
-//     // int grid_y = y / 1;
-
-//     // // Check if we hit a wall ('1' represents a wall in your map)
-//     // if (game->cube.cub_map[grid_y][grid_x] == '1') 
-//     //     return 1;
-//     // printf("hello world\n");
-//     return 0;
-// }
-
 
 void    cast_ray(t_player *player, t_jeux *game, float start_x, int i)
 {
@@ -43,11 +27,11 @@ void    cast_ray(t_player *player, t_jeux *game, float start_x, int i)
 void my_raycasting_function(t_jeux *game)
 {
     float fraction = (PI / 3) / 1300;
-    float start_x = (2 * PI)  - (PI / 6);
+    float start_x = game->cube.player.angle  - (PI / 6);
     int i = 0;
-    float my_angle = atan2(190, 254);
-    float my_angle2 = atan2(270, 350);
-    printf("--new angle is: %f---and your angle is: %f\n", my_angle, my_angle2);
+    // float my_angle = atan2(190, 254);
+    // float my_angle2 = atan2(270, 350);
+    // printf("--new angle is: %f---and your angle is: %f\n", my_angle, my_angle2);
     while(i < 1300)
     {
         // printf("i is: %d and start_x += fraction is : %f\n", i, start_x += fraction);

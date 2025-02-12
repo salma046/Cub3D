@@ -99,6 +99,19 @@ void	valid_chars(t_cub3d *game)
 	}
 }
 
+void	direction(t_cub3d *game)
+{
+	if (game->player.dir_player == 'N')
+		game->player.angle = 3 * PI / 2;
+	if (game->player.dir_player == 'S')
+		game->player.angle = PI / 2;
+	if (game->player.dir_player == 'W')
+		game->player.angle = PI;
+	if (game->player.dir_player == 'E')
+		game->player.angle = 2 * PI;
+	
+}
+
 int check_map(t_cub3d *game)
 {
 	check_for_player(game);
@@ -110,10 +123,11 @@ int check_map(t_cub3d *game)
 	replace_empty_chars(game);
 	if (!is_this_map_valid(game))
 		return (0);
+	direction(game);
 	return (1);
 }
 
-void    init_data(t_cub3d *game)
+void    init_data(t_cub3d *game, t_jeux *jeux)
 {
 	int i;
 	i = 0;
@@ -131,4 +145,10 @@ void    init_data(t_cub3d *game)
 	game->cub_copymap = NULL;
 	game->map_heigh = 0;
 	game->map_width = 0;
+	jeux->keys.rrotate = 0;
+	jeux->keys.lrotate = 0;
+	jeux->keys.up = 0;
+	jeux->keys.down = 0;
+	jeux->keys.right = 0;
+	jeux->keys.left = 0;
 }

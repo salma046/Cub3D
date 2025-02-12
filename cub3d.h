@@ -7,18 +7,24 @@
 #include "gnl/get_next_line.h"
 #include <mlx.h>
 #include <math.h>
-
+#include <stdbool.h>
 
 # define PI 3.14159265359
 
+# define W 119
+# define A 97
+# define S 115
+# define D 100
+# define LEFT 65361
+# define RIGHT 65363
 
 
 typedef struct s_player
 {
-	int		player_x;
-	int		player_y;
+	float	player_x;
+	float	player_y;
 	char	dir_player;
-
+    float   angle;
 }	t_player;
 
 
@@ -34,20 +40,32 @@ typedef enum s_enum
 
 typedef struct s_cub3d
 {
-    char	*no_texture;
-    char	*so_texture;
-    char	*we_texture;
-    char	*ea_texture;
-    int		f_color[3];
-    int		c_color[3];
-    char	**cub;
-    char	**cub_map;
-    char	**cub_copymap;
-    int		map_heigh;
-    int		map_width;
-    t_player	player;
+	char	*no_texture;
+	char	*so_texture;
+	char	*we_texture;
+	char	*ea_texture;
+	int		f_color[3];
+	int		c_color[3];
+	char	**cub;
+	char	**cub_map;
+	char	**cub_copymap;
+	int		map_heigh;
+	int		map_width;
+	t_player	player;
 
-}   t_cub3d;
+}	t_cub3d;
+
+
+typedef struct s_keys
+{
+	bool	up;
+	bool	down;
+	bool	right;
+	bool	left;
+	bool	rrotate;
+	bool	lrotate;
+}	t_keys;
+
 
 typedef struct s_jeux
 {
@@ -74,6 +92,9 @@ typedef struct s_jeux
     int bpp;
     int size_line;
     int endian;
+
+    t_keys keys;
+
     /*
     * il reste a faire :
     * une structure de map."t_cube3d"
@@ -101,8 +122,8 @@ void    ft_joueur();
 
 int     check_file_valid(char *file);
 void	check_file(int ac, char *file);
-void    init_data(t_cub3d *game);
-void	parsing(t_cub3d *game);
+void    init_data(t_cub3d *game, t_jeux *jeux);
+void	parsing(t_cub3d *game, t_jeux *jeux);
 int     check_textures(t_cub3d *game);
 int     check_map(t_cub3d *game);
 int	    check_for_player(t_cub3d *game);
@@ -129,8 +150,12 @@ int     parse_fc_colors(char *colorf, char *colorc, t_cub3d *game);
 /*RayCasting */
 
 
-void my_raycasting_function(t_jeux *game);
-void put_pixel(int x, int y, int color, t_jeux *game);
+void	my_raycasting_function(t_jeux *game);
+void	put_pixel(int x, int y, int color, t_jeux *game);
+int	    handle_key_press(int key_press, t_jeux *jeux);
+int     handle_key_release(int key_press, t_jeux *jeux);
+int     gaming_ft(t_jeux *jeux);
+void 	move_player(t_jeux *jeux);
 
 
 #endif
