@@ -18,8 +18,8 @@ int	check_for_player(t_cub3d *game)
 			if (read_cubmap[i][j] == 'N' || read_cubmap[i][j] == 'S' ||
 					read_cubmap[i][j] == 'W' || read_cubmap[i][j] == 'E')
 			{
-				game->player.player_x = i;
-				game->player.player_y = j;
+				game->player.player_x = 350;
+				game->player.player_y = 270;
 				game->player.dir_player = read_cubmap[i][j];
 				count++;
 			}

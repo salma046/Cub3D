@@ -6,6 +6,10 @@
 #include <stdlib.h>
 #include "gnl/get_next_line.h"
 #include <mlx.h>
+#include <math.h>
+
+
+# define PI 3.14159265359
 
 
 
@@ -64,6 +68,12 @@ typedef struct s_jeux
     //pointeur de fenetre et mlx
     void *win;
     void *mlx;
+    void *img;
+
+    char *data;
+    int bpp;
+    int size_line;
+    int endian;
     /*
     * il reste a faire :
     * une structure de map."t_cube3d"
@@ -113,5 +123,14 @@ void	*ft_memset(void *str, int c, size_t n);
 int     split_my_elements(t_cub3d *game);
 int     fill_cub_map(t_cub3d *game, int i);
 int     parse_fc_colors(char *colorf, char *colorc, t_cub3d *game);
+
+
+/////////////////////////////////////
+/*RayCasting */
+
+
+void my_raycasting_function(t_jeux *game);
+void put_pixel(int x, int y, int color, t_jeux *game);
+
 
 #endif

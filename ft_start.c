@@ -14,7 +14,7 @@
 
 int ft_mini_map(t_jeux *jeux)
 {
-    int i;
+	int i;
     int j;
     int i_de;
     int j_de;
