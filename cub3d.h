@@ -24,16 +24,16 @@ typedef struct s_player
 	float	player_x;
 	float	player_y;
 	char	dir_player;
-    float   angle;
+	float	angle;
 }	t_player;
 
 
 typedef enum s_enum
 {
-    sude,
-    nord,
-    ouest,
-    lest,
+	sude,
+	nord,
+	ouest,
+	lest,
 
 }   t_enum;
 
@@ -69,40 +69,40 @@ typedef struct s_keys
 
 typedef struct s_jeux
 {
-    //la position de joueur dans la carte.
-    float x_pst;
-    float y_pst;
-    //les coordonnees de vision de camera,
-    float x_cam;
-    float y_cam;
-    //encore les coordonnees dechaque direction. 
-    float x_direct;
-    float y_direct;
-    //les coordonnees des ray de ratcasting
-    float x_ray;
-    float y_ray;
-    //chaine pour les donnees
-    char *str;
-    //pointeur de fenetre et mlx
-    void *win;
-    void *mlx;
-    void *img;
+	//la position de joueur dans la carte.
+	float x_pst;
+	float y_pst;
+	//les coordonnees de vision de camera,
+	float x_cam;
+	float y_cam;
+	//encore les coordonnees dechaque direction. 
+	float x_direct;
+	float y_direct;
+	//les coordonnees des ray de ratcasting
+	float x_ray;
+	float y_ray;
+	//chaine pour les donnees
+	char *str;
+	//pointeur de fenetre et mlx
+	void *win;
+	void *mlx;
+	void *img;
 
-    char *data;
-    int bpp;
-    int size_line;
-    int endian;
+	char *data;
+	int bpp;
+	int size_line;
+	int endian;
 
-    t_keys keys;
+	t_keys keys;
 
-    /*
-    * il reste a faire :
-    * une structure de map."t_cube3d"
-    * une structure de mure.
-    * une structure de joueur. 
-    * une structure des ray .
-    * une structure d'image. 
-    */
+	/*
+	* il reste a faire :
+	* une structure de map."t_cube3d"
+	* une structure de mure.
+	* une structure de joueur. 
+	* une structure des ray .
+	* une structure d'image. 
+	*/
    t_cub3d cube;
 }t_jeux;
 
@@ -113,49 +113,51 @@ int ft_start(t_jeux *jeux);
 int ft_mini_map(t_jeux *jeux);
 int ft_designe(int pst);
 void ft_put_pexel();
-void    ft_joueur();
+void	ft_joueur();
 
 
 
 ////////////////////////////////////
 /*Parsing*/
 
-int     check_file_valid(char *file);
+int		check_file_valid(char *file);
 void	check_file(int ac, char *file);
-void    init_data(t_cub3d *game, t_jeux *jeux);
+void	init_data(t_cub3d *game, t_jeux *jeux);
 void	parsing(t_cub3d *game, t_jeux *jeux);
-int     check_textures(t_cub3d *game);
-int     check_map(t_cub3d *game);
-int	    check_for_player(t_cub3d *game);
-int	    check_one_in_edges(t_cub3d *game);
+int		check_textures(t_cub3d *game);
+int		check_map(t_cub3d *game);
+int		check_for_player(t_cub3d *game);
+int		check_one_in_edges(t_cub3d *game);
 void	make_a_copy(t_cub3d *game);
 char	**read_file(char *file);
-int     return_error(char *error_str);
-int     return_free_error(char *error_str, t_cub3d *game);
-int	    ft_strncmp(const char *s1, const char *s2, size_t n);
-void    is_whitespaces(char **line);
-int     ft_skipspace(char *line, int j);
-int     ft_isspace(char c, int type);
-int     is_empty(char *line);
+int		return_error(char *error_str);
+int		return_free_error(char *error_str, t_cub3d *game);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
+void	is_whitespaces(char **line);
+int		ft_skipspace(char *line, int j);
+int		ft_isspace(char c, int type);
+int		is_empty(char *line);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
-int     ft_my_atoi(const char *str);
+int		ft_my_atoi(const char *str);
 char	*ft_my_strjoin(char *s1, char *s2);
 void	*ft_memset(void *str, int c, size_t n);
-int     split_my_elements(t_cub3d *game);
-int     fill_cub_map(t_cub3d *game, int i);
-int     parse_fc_colors(char *colorf, char *colorc, t_cub3d *game);
+int		split_my_elements(t_cub3d *game);
+int		fill_cub_map(t_cub3d *game, int i);
+int		parse_fc_colors(char *colorf, char *colorc, t_cub3d *game);
 
 
 /////////////////////////////////////
 /*RayCasting */
 
-
+void    cast_ray(t_player *player, t_jeux *game, float start);
+int		no_walls(float ray_x, float ray_y, char **map);
 void	my_raycasting_function(t_jeux *game);
 void	put_pixel(int x, int y, int color, t_jeux *game);
-int	    handle_key_press(int key_press, t_jeux *jeux);
-int     handle_key_release(int key_press, t_jeux *jeux);
-int     gaming_ft(t_jeux *jeux);
+int		handle_key_press(int key_press, t_jeux *jeux);
+int		handle_key_release(int key_press, t_jeux *jeux);
+int		gaming_ft(t_jeux *jeux);
 void 	move_player(t_jeux *jeux);
+void	draw_map(t_jeux *jeux);
 
 
 #endif

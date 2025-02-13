@@ -18,8 +18,9 @@ int	check_for_player(t_cub3d *game)
 			if (read_cubmap[i][j] == 'N' || read_cubmap[i][j] == 'S' ||
 					read_cubmap[i][j] == 'W' || read_cubmap[i][j] == 'E')
 			{
-				game->player.player_x = 350;
-				game->player.player_y = 270;
+				// printf("i mul 50 is: -%d- and j mul 50 is: -%d-\n because i is: %d and j is: %d\n", i *50, j * 50, i, j);
+				game->player.player_x = j * 50;//i
+				game->player.player_y = i * 50;//j
 				game->player.dir_player = read_cubmap[i][j];
 				count++;
 			}

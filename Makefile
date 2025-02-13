@@ -5,7 +5,8 @@ SRC = main.c gnl/get_next_line.c gnl/get_next_line_utils.c \
 		Parsing/parsing_colors.c libft/ft_isspace.c \
 		libft/ft_strjoin.c libft/ft_memset.c ft_errors.c \
 		Parsing/init_data2.c Parsing/init_data.c \
-		raycasting/raycasting.c raycasting/moveutils.c 
+		raycasting/raycasting.c raycasting/move_utils.c \
+		raycasting/drawing.c
 NAME = Cub3D
 cc = cc
 FLAGS= -Wall -Wextra -Werror

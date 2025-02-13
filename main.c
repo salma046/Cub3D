@@ -9,6 +9,7 @@ void put_pixel(int x, int y, int color, t_jeux *game)
     game->data[index] = color & 0xFF;
     game->data[index + 1] = (color >> 8) & 0xFF;
     game->data[index + 2] = (color >> 16) & 0xFF;
+	// exit(32);
 }
 
 void put_player(int x, int y, int color, t_jeux *game)

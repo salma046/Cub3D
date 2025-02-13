@@ -39,6 +39,8 @@ void	replace_empty_chars(t_cub3d *game)
 
 int	check_no_spaces(char **map, int x, int y)
 {
+	if (x == 0 || map[x + 1] == NULL)
+		return (0);
 	if (map[x - 1][y] == ' ' || map[x - 1][y] == '\0')
 		return (0);
 	if (map[x + 1][y] == ' ' || map[x + 1][y] == '\0')
