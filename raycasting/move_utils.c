@@ -50,35 +50,43 @@ void clear_image(t_jeux *game)
 void	move_player(t_jeux *jeux)
 {
 	float	angle_rotation;
-	int		moves;
+	float	x_player;
+	float	y_player;
+	int		next_movecos;
+	int		next_movesin;
 
 	angle_rotation = 0.03;
-	moves = 3;
+	x_player = jeux->cube.player.player_x;
+	y_player = jeux->cube.player.player_y;
+	next_movecos = 3 * cos(jeux->cube.player.angle);
+	next_movesin = 3 * sin(jeux->cube.player.angle);
 	if (jeux->keys.rrotate)
 		jeux->cube.player.angle += angle_rotation;
 	if (jeux->keys.lrotate)
 		jeux->cube.player.angle -= angle_rotation;
 
-	if (jeux->keys.up)
+	if (jeux->keys.up && no_walls(x_player + next_movecos, y_player + next_movesin, jeux->cube.cub_map))
 	{
-		jeux->cube.player.player_x += moves * cos(jeux->cube.player.angle);
-		jeux->cube.player.player_y += moves * sin(jeux->cube.player.angle);
+		x_player += next_movecos;
+		y_player += next_movesin;
 	}
-	if (jeux->keys.down)
+	if (jeux->keys.down && no_walls(x_player - next_movecos, y_player - next_movesin, jeux->cube.cub_map))
 	{
-		jeux->cube.player.player_x -= moves * cos(jeux->cube.player.angle);
-		jeux->cube.player.player_y -= moves * sin(jeux->cube.player.angle);
+		x_player -= next_movecos;
+		y_player -= next_movesin;
 	}
-	if (jeux->keys.right)
+	if (jeux->keys.right && no_walls(x_player - next_movesin, y_player + next_movecos, jeux->cube.cub_map))
 	{
-		jeux->cube.player.player_x -= moves * sin(jeux->cube.player.angle);
-		jeux->cube.player.player_y += moves * cos(jeux->cube.player.angle);
+		x_player -= next_movesin;
+		y_player += next_movecos;
 	}
-	if (jeux->keys.left)
+	if (jeux->keys.left && no_walls(x_player + next_movesin, y_player - next_movecos, jeux->cube.cub_map))
 	{
-		jeux->cube.player.player_x += moves * sin(jeux->cube.player.angle);
-		jeux->cube.player.player_y -= moves * cos(jeux->cube.player.angle);
+		x_player += next_movesin;
+		y_player -= next_movecos;
 	}
+	jeux->cube.player.player_x = x_player;
+	jeux->cube.player.player_y = y_player;
 }
 
 
