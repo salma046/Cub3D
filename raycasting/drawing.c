@@ -21,41 +21,71 @@ void	draw_player(int player_x, int player_y, int diametre, t_jeux *jeux)
 	}
 }
 
+void	draw_minimap(void)
+{
+	return ;
+}
+
+int	check_distance(int mini_x, int mini_y, int wall_y, int wall_x, t_jeux *jeux)
+{
+	int p_y;
+	int p_x;
+	int i;
+	int j;
+	int new_wallx;
+	int new_wally;
+
+	p_y = jeux->cube.player.player_y / 50;
+	p_x = jeux->cube.player.player_x / 50;
+	// printf("the player x is: %d\nthe player y is: %d\n the wall x is: %d\nthe wall y is: %d\n", p_x, p_y, wall_x, wall_y);
+	if (abs(p_y - wall_y) <= 7 && abs(p_x - wall_x) <= 13)
+	{
+		new_wallx = mini_x +((p_y - wall_y) * 20);
+		new_wally = mini_y +((p_x - wall_x) * 20);
+		// printf("the minix is: %d and py - wall is: %d\n", mini_x, (p_y - wall_y));
+		i = 0;
+		while (i < 20)
+		{
+			j = 0;
+			while (j < 20)
+			{
+				ft_put_pixel(new_wallx + j, new_wally + i, 0x3291a8, jeux);
+				j++;
+			}
+			// printf("hello world the startx is: %d and the start y is: %d\n", new_wallx, new_wally);
+			// exit(27);
+			i++;
+		}
+		// exit (54);
+		// return (1);
+	}
+	return (0);
+}
 
 void	draw_walls(int p_x, int p_y, t_jeux *jeux)
 {
-	// int i;
-	// int j;
-	int x;
-	int y;
+	int i;
+	int j;
+	// int x;
+	// int y;
 
-	(void)p_x;
-	(void)p_y;
 
-	// i = 0;
-	// j = 0;
-	y = jeux->cube.player.player_y / 50;
-	// map = jeux->cube.cub_map;
-	while (jeux->cube.cub_map[y])
+	i = 0;
+	while (jeux->cube.cub_map[i])
 	{
-		x = jeux->cube.player.player_x / 50;
-		printf("x is: %d and y is: %d\n", x, y);
-		exit (8);
-		while (jeux->cube.cub_map[y][x])
+		j = 0;
+		while (jeux->cube.cub_map[i][j])
 		{
-			printf("hiiiiiii\n");
-			if (jeux->cube.cub_map[y][x] == '1')
+			if (jeux->cube.cub_map[i][j] == '1')
 			{
-				// i = 0;
-
-				printf("the char is : %c\n", jeux->cube.cub_map[y][x]);
+				check_distance(p_x, p_y, i, j, jeux);
+					// draw_minimap();
 			}
-			x++;
+			j++;
 		}
-		exit(26);
-		y++;
+		// printf("%s", jeux->cube.cub_map[i]);
+		i++;
 	}
-	// draw minimap
 }
 
 void	mini_map(t_jeux *jeux)
@@ -95,7 +125,7 @@ void	mini_map(t_jeux *jeux)
 	player_x = map_width / 2;
 	player_y = map_height / 2;
 	draw_player(player_x, player_y, 5, jeux);
-	// draw_walls(player_x, player_y, jeux);
+	draw_walls(player_x, player_y, jeux);
 
 }
 
