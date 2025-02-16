@@ -10,6 +10,8 @@
 #include <stdbool.h>
 
 # define PI 3.14159265359
+# define WIDTH 1300
+# define HEIGHT 700
 
 # define W 119
 # define A 97
@@ -112,7 +114,7 @@ typedef struct s_jeux
 int ft_start(t_jeux *jeux);
 int ft_mini_map(t_jeux *jeux);
 int ft_designe(int pst);
-void ft_put_pexel();
+// void ft_put_pixel();
 void	ft_joueur();
 
 
@@ -152,12 +154,17 @@ int		parse_fc_colors(char *colorf, char *colorc, t_cub3d *game);
 void    cast_ray(t_player *player, t_jeux *game, float start);
 int		no_walls(float ray_x, float ray_y, char **map);
 void	my_raycasting_function(t_jeux *game);
-void	put_pixel(int x, int y, int color, t_jeux *game);
+void	ft_put_pixel(int x, int y, int color, t_jeux *game);
 int		handle_key_press(int key_press, t_jeux *jeux);
 int		handle_key_release(int key_press, t_jeux *jeux);
 int		gaming_ft(t_jeux *jeux);
 void 	move_player(t_jeux *jeux);
 void	draw_map(t_jeux *jeux);
+
+
+/////////////////////////////////////
+/*BONUS   */
+void	mini_map(t_jeux *jeux);
 
 
 #endif

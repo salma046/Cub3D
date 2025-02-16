@@ -42,9 +42,20 @@ int	handle_key_release(int key_press, t_jeux *jeux)
 }
 void clear_image(t_jeux *game)
 {
-    for(int y = 0; y < 700; y++)
-        for(int x = 0; x < 1300; x++)
-            put_pixel(x, y, 0, game);
+	int	y;
+	int	x;
+
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			ft_put_pixel(x, y, 0, game);
+			x++;
+		}
+		y++;
+	}
 }
 
 void	move_player(t_jeux *jeux)
@@ -96,5 +107,7 @@ int	gaming_ft(t_jeux *jeux)
     clear_image(jeux);
 	my_raycasting_function(jeux);
 	draw_map(jeux);
+	mini_map(jeux);
+	// ft_start(jeux);
 	return (0);
 }

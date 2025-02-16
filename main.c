@@ -1,8 +1,8 @@
 #include "cub3d.h"
 
-void put_pixel(int x, int y, int color, t_jeux *game)
+void ft_put_pixel(int x, int y, int color, t_jeux *game)
 {
-    if(x >= 1300 || y >= 700 || x < 0 || y < 0)
+    if(x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
         return;
     
     int index = y * game->size_line + x * game->bpp / 8;
@@ -14,7 +14,7 @@ void put_pixel(int x, int y, int color, t_jeux *game)
 
 void put_player(int x, int y, int color, t_jeux *game)
 {
-	put_pixel(x, y, color, game);
+	ft_put_pixel(x, y, color, game);
 }
 
 int main(int ac, char *av[])
@@ -30,8 +30,9 @@ int main(int ac, char *av[])
 		return_error("Invalid map!");
 	parsing(game, &jeux);
 	jeux.mlx = mlx_init();
-	jeux.win = mlx_new_window(jeux.mlx, 1300, 700, "Cub3d");
-	jeux.img = mlx_new_image(jeux.mlx, 1300, 700);
+	jeux.win = mlx_new_window(jeux.mlx, WIDTH, HEIGHT, "Cub3d");
+	jeux.img = mlx_new_image(jeux.mlx, WIDTH, HEIGHT);
+
     jeux.data = mlx_get_data_addr(jeux.img, &jeux.bpp, &jeux.size_line, &jeux.endian);
     mlx_put_image_to_window(jeux.mlx, jeux.win, jeux.img, 0, 0);
 	mlx_hook(jeux.win, 2, 1L<<0, handle_key_press, &jeux);

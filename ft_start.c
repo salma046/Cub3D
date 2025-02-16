@@ -33,12 +33,13 @@ int ft_mini_map(t_jeux *jeux)
         {
             desgn = ft_designe(jeux->cube.cub_map[i][j]);
             if(desgn)
-                ft_put_pexel();
+                ft_put_pixel(i, j, 0x966b76, jeux);
             j++;
         }
         i++;
     }
-    ft_joueur();
+    // ft_joueur();
+    return (0);
     
 }
 
@@ -58,5 +59,5 @@ int ft_start(t_jeux *jeux)
     }
     ft_mini_map(jeux);
 
-    
+    return (0);
 }

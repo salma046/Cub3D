@@ -18,27 +18,26 @@ void    cast_ray(t_player *player, t_jeux *game, float start)
     
     while (no_walls(ray_x, ray_y, game->cube.cub_map))
     {
-		put_pixel(ray_x, ray_y, 0x03d3fc, game); // Draw the ray
+		ft_put_pixel(ray_x, ray_y, 0x03d3fc, game); // Draw the ray
         ray_x += cos_angle; // Move ray in x's
         ray_y += sin_angle;
     }
-	// make 3d walls
 }
 
 void my_raycasting_function(t_jeux *game)
 {
-    float next = (PI / 3) / 1300;
+    float next = (PI / 3) / WIDTH;
     float start = game->cube.player.angle  - (PI / 6);
-    int i = 0;
+    // int i = 0;
     // float my_angle = atan2(190, 254);
     // float my_angle2 = atan2(270, 350);
     // printf("--new angle is: %f---and your angle is: %f\n", my_angle, my_angle2);
-	while(i < 1300)
+	while(start < game->cube.player.angle + (PI / 6))
 	{
 		// printf("i is: %d and start += next is : %f\n", i, start += next);
 		cast_ray(&game->cube.player, game, start);
 		start += next;
-		i++;
+		// i++;
 		// printf("i is: %d and start += next is : %f\n", i, start + next);
 		// usleep(600);
 	}

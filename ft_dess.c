@@ -28,7 +28,7 @@ int ft_designe(int pst)
     return(couleur);
 }
 
-void ft_put_pexel()
-{
+// void ft_put_pixel()
+// {
     
-}
+// }
