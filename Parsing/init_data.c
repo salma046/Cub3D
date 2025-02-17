@@ -49,7 +49,6 @@ int	check_no_spaces(char **map, int x, int y)
 		return (0);
 	if (map[x][y + 1] == ' ' || map[x][y + 1] == '\0')
 		return (0);
-
 	return (1);
 }
 
@@ -118,8 +117,6 @@ int check_map(t_cub3d *game)
 {
 	check_for_player(game);
 	valid_chars(game);
-	// if (check_one_in_edges(game) == 0)
-	// 	return_free_error("INvalid Map!", game);
 	//// check only valid caracters found
 	make_a_copy(game);
 	replace_empty_chars(game);

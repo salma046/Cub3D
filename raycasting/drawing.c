@@ -21,6 +21,20 @@ void	draw_player(int player_x, int player_y, int diametre, t_jeux *jeux)
 	}
 }
 
+int check_edge(int y, int x, t_jeux *jeux)
+{
+	char **map;
+
+	map = jeux->cube.cub_copymap;
+	if (y == 0 || map[y + 1] == NULL)
+		return (1);
+	if (map[y - 1][x] == '\0' || map[y + 1][x] == '\0')
+		return (1);
+	if (map[y][x - 1] == '\0' || map[y][x + 1] == '\0')
+		return (1);
+	return (0);
+}
+
 int	check_distance(int mini_x, int mini_y, int wall_y, int wall_x, t_jeux *jeux)
 {
 	int p_y;
@@ -49,6 +63,9 @@ int	check_distance(int mini_x, int mini_y, int wall_y, int wall_x, t_jeux *jeux)
 			}
 			i++;
 		}
+		// if (check_edge(wall_y, wall_x, jeux))
+		// 	exit (43);
+			// draw_empty_space()
 	}
 	return (0);
 }

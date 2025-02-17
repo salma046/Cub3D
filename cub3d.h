@@ -129,7 +129,6 @@ void	parsing(t_cub3d *game, t_jeux *jeux);
 int		check_textures(t_cub3d *game);
 int		check_map(t_cub3d *game);
 int		check_for_player(t_cub3d *game);
-int		check_one_in_edges(t_cub3d *game);
 void	make_a_copy(t_cub3d *game);
 char	**read_file(char *file);
 int		return_error(char *error_str);

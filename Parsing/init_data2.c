@@ -34,45 +34,6 @@ int	check_for_player(t_cub3d *game)
 	return (1);
 }
 
-int	check_one_in_edges(t_cub3d *game)
-{
-	char	**read_cubmap;
-	int		i;
-	int		j;
-
-	i = 0;
-	read_cubmap = game->cub_map;
-	while (read_cubmap[i])
-	{
-		j = 0;
-		while(read_cubmap[i] && !is_empty(read_cubmap[i]))
-		{
-			i++;
-			if (!read_cubmap[i])
-				return (1);
-		}
-		while (read_cubmap[i][j + 1] && ft_isspace(read_cubmap[i][j], 0))
-			j++;
-		if (read_cubmap[i][j] && read_cubmap[i][j] != '1')
-			return (0);
-		while (read_cubmap[i][j])
-		{
-			if (i == 0 || i == game->map_heigh - 1)
-			{
-				while (ft_isspace(read_cubmap[i][j], 1))
-					j++;
-				if (read_cubmap[i][j] != '\0' && read_cubmap[i][j] != '\n' && read_cubmap[i][j] != '1')
-					return (0);
-			}
-			j++;
-		}
-		if (read_cubmap[i][j - 1] == '\n' && read_cubmap[i][j - 2] != '1')
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 void	make_a_copy(t_cub3d *game)
 {
 	char **to_read;
