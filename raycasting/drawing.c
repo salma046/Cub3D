@@ -21,11 +21,6 @@ void	draw_player(int player_x, int player_y, int diametre, t_jeux *jeux)
 	}
 }
 
-void	draw_minimap(void)
-{
-	return ;
-}
-
 int	check_distance(int mini_x, int mini_y, int wall_y, int wall_x, t_jeux *jeux)
 {
 	int p_y;
@@ -37,27 +32,23 @@ int	check_distance(int mini_x, int mini_y, int wall_y, int wall_x, t_jeux *jeux)
 
 	p_y = jeux->cube.player.player_y / 50;
 	p_x = jeux->cube.player.player_x / 50;
-	// printf("the player x is: %d\nthe player y is: %d\n the wall x is: %d\nthe wall y is: %d\n", p_x, p_y, wall_x, wall_y);
 	if (abs(p_y - wall_y) <= 7 && abs(p_x - wall_x) <= 13)
 	{
-		new_wallx = mini_x +((p_y - wall_y) * 20);
-		new_wally = mini_y +((p_x - wall_x) * 20);
-		// printf("the minix is: %d and py - wall is: %d\n", mini_x, (p_y - wall_y));
+		new_wallx = mini_x +((wall_x - p_x) * 20);
+		new_wally = mini_y +((wall_y - p_y) * 20);
 		i = 0;
 		while (i < 20)
 		{
 			j = 0;
 			while (j < 20)
 			{
-				ft_put_pixel(new_wallx + j, new_wally + i, 0x3291a8, jeux);
+				if (((new_wallx + j) <= (WIDTH / 5) + 5 && (new_wallx + j) >= 15) &&
+						((new_wally + i) <= (HEIGHT / 5) + 5 && (new_wally + i >= 15)))
+					ft_put_pixel(new_wallx + j, new_wally + i, 0x3291a8, jeux);
 				j++;
 			}
-			// printf("hello world the startx is: %d and the start y is: %d\n", new_wallx, new_wally);
-			// exit(27);
 			i++;
 		}
-		// exit (54);
-		// return (1);
 	}
 	return (0);
 }
