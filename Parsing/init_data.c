@@ -93,7 +93,10 @@ void	valid_chars(t_cub3d *game)
 			if (read_cubmap[i][j] != game->player.dir_player &&
 				read_cubmap[i][j] != '1' && read_cubmap[i][j] != '\n' &&
 					read_cubmap[i][j] != '0' && read_cubmap[i][j] != ' ')
+			{
+				printf("in i %d and j %d \n", i, j);
 				return_free_error("Invalid charachers!", game);
+			}
 			j++;
 		}
 		i++;

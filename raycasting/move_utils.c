@@ -19,6 +19,9 @@ int	handle_key_press(int key_press, t_jeux *jeux)
 	if (key_press == 65307)
 	{
 		mlx_destroy_window(jeux->mlx, jeux->win);
+		mlx_destroy_image(jeux->mlx, jeux->img);
+		mlx_destroy_display(jeux->mlx);
+		free(jeux->mlx);
 		return_free_error("", &jeux->cube);
 	}
 	return (0);
@@ -69,8 +72,8 @@ void	move_player(t_jeux *jeux)
 	angle_rotation = 0.03;
 	x_player = jeux->cube.player.player_x;
 	y_player = jeux->cube.player.player_y;
-	next_movecos = 5 * cos(jeux->cube.player.angle);
-	next_movesin = 5 * sin(jeux->cube.player.angle);
+	next_movecos = 3 * cos(jeux->cube.player.angle);
+	next_movesin = 3 * sin(jeux->cube.player.angle);
 	if (jeux->keys.rrotate)
 		jeux->cube.player.angle += angle_rotation;
 	if (jeux->keys.lrotate)

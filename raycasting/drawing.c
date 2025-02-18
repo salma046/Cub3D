@@ -112,7 +112,7 @@ void	draw_walls(int p_x, int p_y, t_jeux *jeux)
 				check_distance(p_x, p_y, i, j, jeux, 0x3291a8);
 					// draw_minimap();
 			}
-			if (jeux->cube.cub_map[i][j] == '0')
+			if (jeux->cube.cub_map[i][j] == '0' || jeux->cube.cub_map[i][j] == jeux->cube.player.dir_player)
 			{
 				check_distance(p_x, p_y, i, j, jeux, 0xd1b2b0);
 					// draw_minimap();
