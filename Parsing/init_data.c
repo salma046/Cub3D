@@ -128,6 +128,19 @@ int check_map(t_cub3d *game)
 	direction(game);
 	return (1);
 }
+void init_texture(t_jeux *game)
+{
+	
+	if(!game->mlx)
+		printf("1ssssssssssssssssssssssssss\n");
+
+    //game->cub.texture.img = mlx_xpm_file_to_image(game->mlx, "texture/1.xpm", &game->cub.texture.width, &game->cub.texture.height);
+	
+	//if (!game->cub.texture.img)
+      //  return_error("Texture erreure");
+
+    //game->cub.texture.addr = mlx_get_data_addr(game->cub.texture.img, &game->cub.texture.bpp, &game->cub.texture.size_line, &game->cub.texture.endian);
+}
 
 void    init_data(t_cub3d *game, t_jeux *jeux)
 {
@@ -153,4 +166,13 @@ void    init_data(t_cub3d *game, t_jeux *jeux)
 	jeux->keys.down = 0;
 	jeux->keys.right = 0;
 	jeux->keys.left = 0;
+
+	jeux->cub.texture.img = NULL;
+    jeux->cub.texture.addr = NULL;
+    jeux->cub.texture.height = HEIGHT;
+    jeux->cub.texture.width = WIDTH;
+    jeux->cub.texture.bpp = 0;
+    jeux->cub.texture.size_line = 0;
+    jeux->cub.texture.endian = 0;
+
 }

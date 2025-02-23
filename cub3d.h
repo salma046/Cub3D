@@ -5,7 +5,7 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include "gnl/get_next_line.h"
-#include <mlx.h>
+#include "mlx/mlx.h"
 #include <math.h>
 #include <stdbool.h>
 
@@ -39,6 +39,16 @@ typedef enum s_enum
 
 }   t_enum;
 
+typedef struct s_texture
+{
+    void *img;
+    char *addr;
+    int height;
+    int width;
+    int bpp;
+    int size_line;
+    int endian;
+} t_texture;
 
 typedef struct s_cub3d
 {
@@ -53,6 +63,7 @@ typedef struct s_cub3d
 	char	**cub_copymap;
 	int		map_heigh;
 	int		map_width;
+	t_texture texture;
 	t_player	player;
 
 }	t_cub3d;
@@ -105,7 +116,7 @@ typedef struct s_jeux
 	* une structure des ray .
 	* une structure d'image. 
 	*/
-   t_cub3d cube;
+   t_cub3d cub;
 }t_jeux;
 
 
@@ -149,8 +160,9 @@ int		parse_fc_colors(char *colorf, char *colorc, t_cub3d *game);
 
 /////////////////////////////////////
 /*RayCasting */
-
-void    cast_ray(t_player *player, t_jeux *game, float start);
+//void    cast_ray(t_player *player, t_jeux *game, float start);
+void cast_ray(t_jeux *game, float angle, int i);
+//void cast_ray(t_jeux *game, float start, int i);
 int		no_walls(float ray_x, float ray_y, char **map);
 void	my_raycasting_function(t_jeux *game);
 void	ft_put_pixel(int x, int y, int color, t_jeux *game);

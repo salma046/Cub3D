@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_start.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
+/*   By: bimane <bimane@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 13:27:02 by bimane            #+#    #+#             */
-/*   Updated: 2025/01/29 09:51:02 by salaoui          ###   ########.fr       */
+/*   Updated: 2025/02/22 11:50:02 by bimane           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int ft_mini_map(t_jeux *jeux)
     int desgn;
 
     i = 0;
-    i_de = jeux->cube.map_heigh;
-    j_de = jeux->cube.map_width;
+    i_de = jeux->cub.map_heigh;
+    j_de = jeux->cub.map_width;
     
     if((i_de * j_de) >= 2000 )
         return(1);
@@ -31,7 +31,7 @@ int ft_mini_map(t_jeux *jeux)
         j = 0;
         while(j < j_de)
         {
-            desgn = ft_designe(jeux->cube.cub_map[i][j]);
+            desgn = ft_designe(jeux->cub.cub_map[i][j]);
             if(desgn)
                 ft_put_pixel(i, j, 0x966b76, jeux);
             j++;

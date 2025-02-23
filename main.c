@@ -24,7 +24,7 @@ int main(int ac, char *av[])
 	t_jeux	jeux;
 
 	check_file(ac, av[1]);
-	game = &jeux.cube;
+	game = &jeux.cub;
 	game->cub = read_file(av[1]);
 	if (!game->cub)
 		return_error("Invalid map!");

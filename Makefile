@@ -9,7 +9,7 @@ SRC = main.c gnl/get_next_line.c gnl/get_next_line_utils.c \
 		raycasting/drawing.c ft_start.c ft_dess.c
 NAME = Cub3D
 cc = cc
-FLAGS= -Wall -Wextra -Werror
+FLAGS= -Wall -Wextra -Werror -fsanitize=address
 MINILIBX= -L/usr/local/lib -lmlx -lX11 -lXext -lm
 SRC_o := $(SRC:.c=.o)
 
