@@ -167,12 +167,6 @@ void    init_data(t_cub3d *game, t_jeux *jeux)
 	jeux->keys.right = 0;
 	jeux->keys.left = 0;
 
-	jeux->cub.texture.img = NULL;
-    jeux->cub.texture.addr = NULL;
-    jeux->cub.texture.height = HEIGHT;
-    jeux->cub.texture.width = WIDTH;
-    jeux->cub.texture.bpp = 0;
-    jeux->cub.texture.size_line = 0;
-    jeux->cub.texture.endian = 0;
+
 
 }

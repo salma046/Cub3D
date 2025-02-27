@@ -63,7 +63,9 @@ typedef struct s_cub3d
 	char	**cub_copymap;
 	int		map_heigh;
 	int		map_width;
-	t_texture texture;
+	t_texture texture[4];
+	t_texture txt_plat;
+	t_texture txt_ciel;
 	t_player	player;
 
 }	t_cub3d;
@@ -171,7 +173,7 @@ int		handle_key_release(int key_press, t_jeux *jeux);
 int		gaming_ft(t_jeux *jeux);
 void 	move_player(t_jeux *jeux);
 void	draw_map(t_jeux *jeux);
-
+void ft_init_text(t_cub3d *game,void *mlx);
 
 /////////////////////////////////////
 /*BONUS   */
