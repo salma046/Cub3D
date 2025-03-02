@@ -64,7 +64,7 @@ int	fill_cub_map(t_cub3d *game, int i)
 	while (read_cub[i] && !check_end_map(read_cub[i]))
 		i++;
 	if (read_cub[i])
-		return_free_error("Invalid Map!", game);
+		return_free_error("\nInvalid Map!", game);
 	return (1);
 }
 
@@ -72,9 +72,9 @@ void	parsing(t_cub3d *game, t_jeux *jeux)
 {
 	init_data(game, jeux);
 	if (!split_my_elements(game))
-		return_free_error("Invalid map!", game);
+		return_free_error("\nInvalid map!", game);
 	if (check_textures(game) == 0)
-		return_free_error("wrong textures!", game);
+		return_free_error("\nwrong textures!", game);
 	if (check_map(game) == 0)
-		return_free_error("map not valid!", game);
+		return_free_error("\nmap not valid!", game);
 }

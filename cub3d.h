@@ -5,13 +5,14 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include "gnl/get_next_line.h"
-#include "mlx/mlx.h"
+#include <mlx.h>
 #include <math.h>
 #include <stdbool.h>
 
 # define PI 3.14159265359
 # define WIDTH 1300
 # define HEIGHT 700
+# define FRAMES 69 //78
 
 # define W 119
 # define A 97
@@ -27,8 +28,45 @@ typedef struct s_player
 	float	player_y;
 	char	dir_player;
 	float	angle;
+	void			**player;
+	int				**addr_player;
+	int				*width_player;
+	int				*height_player;
+	int				*bpp_player;
+	int				*size_line_player;
+	int				*endian_player;
 }	t_player;
 
+
+typedef struct s_player_data
+{
+	int				src_index;
+	int				x_start;
+	int				y_start;
+	unsigned int	*texture_addr;
+	unsigned int	*img_addr;
+	float			x_scale;
+	float			y_scale;
+	int				texture_x;
+	int				texture_y;
+	int				i;
+	int				j;
+}					t_player_data;
+
+typedef struct s_render_player
+{
+	int				src_index;
+	int				x_start;
+	int				y_start;
+	unsigned int	*texture_addr;
+	unsigned int	*img_addr;
+	float			x_scale;
+	float			y_scale;
+	int				texture_x;
+	int				texture_y;
+	int				i;
+	int				j;
+}					t_player_ren;
 
 typedef enum s_enum
 {
@@ -74,6 +112,7 @@ typedef struct s_cub3d
 typedef struct s_keys
 {
 	bool	up;
+	bool	upispress;
 	bool	down;
 	bool	right;
 	bool	left;
@@ -166,18 +205,20 @@ int		parse_fc_colors(char *colorf, char *colorc, t_cub3d *game);
 void cast_ray(t_jeux *game, float angle, int i);
 //void cast_ray(t_jeux *game, float start, int i);
 int		no_walls(float ray_x, float ray_y, char **map);
-void	my_raycasting_function(t_jeux *game);
+int		my_raycasting_function(t_jeux *game);
 void	ft_put_pixel(int x, int y, int color, t_jeux *game);
 int		handle_key_press(int key_press, t_jeux *jeux);
 int		handle_key_release(int key_press, t_jeux *jeux);
 int		gaming_ft(t_jeux *jeux);
 void 	move_player(t_jeux *jeux);
-void	draw_map(t_jeux *jeux);
-void ft_init_text(t_cub3d *game,void *mlx);
+// void	draw_map(t_jeux *jeux);
+void	ft_init_text(t_jeux *jeux, t_cub3d *game,void *mlx);
 
 /////////////////////////////////////
 /*BONUS   */
 void	mini_map(t_jeux *jeux);
-
+void	parse_player_textures(t_cub3d *game, t_jeux *jeux);
+void	ft_init_player(t_cub3d *game, t_jeux *jeux);
+void	put_pl_hands(t_jeux *game, int *player, int texture_width, int texture_height);
 
 #endif

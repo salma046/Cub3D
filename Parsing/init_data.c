@@ -92,10 +92,10 @@ void	valid_chars(t_cub3d *game)
 		{
 			if (read_cubmap[i][j] != game->player.dir_player &&
 				read_cubmap[i][j] != '1' && read_cubmap[i][j] != '\n' &&
-					read_cubmap[i][j] != '0' && read_cubmap[i][j] != ' ')
+					read_cubmap[i][j] != '0' && read_cubmap[i][j] != ' '
+						&& read_cubmap[i][j] != 'P')
 			{
-				printf("in i %d and j %d \n", i, j);
-				return_free_error("Invalid charachers!", game);
+				return_free_error("\nInvalid charachers!", game);
 			}
 			j++;
 		}
@@ -128,18 +128,16 @@ int check_map(t_cub3d *game)
 	direction(game);
 	return (1);
 }
-void init_texture(t_jeux *game)
+
+void	init_other_data(t_cub3d *game)
 {
-	
-	if(!game->mlx)
-		printf("1ssssssssssssssssssssssssss\n");
-
-    //game->cub.texture.img = mlx_xpm_file_to_image(game->mlx, "texture/1.xpm", &game->cub.texture.width, &game->cub.texture.height);
-	
-	//if (!game->cub.texture.img)
-      //  return_error("Texture erreure");
-
-    //game->cub.texture.addr = mlx_get_data_addr(game->cub.texture.img, &game->cub.texture.bpp, &game->cub.texture.size_line, &game->cub.texture.endian);
+	game->player.player = NULL;
+	game->player.addr_player = NULL;
+	game->player.width_player = NULL;
+	game->player.height_player = NULL;
+	game->player.bpp_player = NULL;
+	game->player.size_line_player = NULL;
+	game->player.endian_player = NULL;
 }
 
 void    init_data(t_cub3d *game, t_jeux *jeux)
@@ -166,7 +164,5 @@ void    init_data(t_cub3d *game, t_jeux *jeux)
 	jeux->keys.down = 0;
 	jeux->keys.right = 0;
 	jeux->keys.left = 0;
-
-
-
+	init_other_data(game);
 }

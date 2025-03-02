@@ -2,7 +2,7 @@
 
 int no_walls(float ray_x, float ray_y, char **map)
 {
-    int x = ray_x / 50;
+	int x = ray_x / 50;
     int y = ray_y / 50;
     // if (x <= 0 || y <= 0)
     // {
@@ -15,11 +15,11 @@ int no_walls(float ray_x, float ray_y, char **map)
     return (1);
 }
 
-void ft_init_text(t_cub3d *game,void *mlx)
+void ft_init_text(t_jeux *jeux, t_cub3d *game,void *mlx)
 {
-    char *text[4]= {"texture/ff.xpm","texture/ff.xpm","texture/ff.xpm","texture/ff.xpm"};
-    char *pl = "texture/44.xpm";
+    char *text[4]= {game->ea_texture, game->so_texture, game->no_texture, game->we_texture};
     char *cl = "texture/cl.xpm";
+    char *pl = "texture/color_floor.xpm"; // game->so_texture;
     int i = 0;
 
  
@@ -29,7 +29,10 @@ void ft_init_text(t_cub3d *game,void *mlx)
     {
         game->texture[i].img = mlx_xpm_file_to_image(mlx,text[i],&game->texture[i].width,&game->texture[i].height);
         if(!game->texture[i].img)
-            return_error("**********erreur");
+        {
+            return_free_error("Ivalid Texture image", game);
+            mlx_destroy_display(jeux->mlx);
+        }
         game->texture[i].addr = mlx_get_data_addr(game->texture[i].img,&game->texture[i].bpp, &game->texture[i].size_line, &game->texture[i].endian);
         i++;
     }    
@@ -37,7 +40,7 @@ void ft_init_text(t_cub3d *game,void *mlx)
     game->txt_plat.addr = mlx_get_data_addr(game->txt_plat.img, &game->txt_plat.bpp, &game->txt_plat.size_line, &game->txt_plat.endian);
     game->txt_ciel.img = mlx_xpm_file_to_image(mlx, cl, &game->txt_ciel.width, &game->txt_ciel.height);
     if(!game->txt_plat.img || !game->txt_ciel.img)
-        return_error("-----------------erreur");
+        return_free_error("Ivalid Texture image", game);
     game->txt_ciel.addr = mlx_get_data_addr(game->txt_ciel.img, &game->txt_ciel.bpp, &game->txt_ciel.size_line, &game->txt_ciel.endian);
 }
 
@@ -238,9 +241,9 @@ void cast_ray(t_jeux *game, float start, int i)
     cast_y = (int)ray_y;
     distance = ft_calc_distan(game, &ray_x, &ray_y, cos_angle, sin_angle);
     corr_dst = fabs(distance * cos(start - game->cub.player.angle));
-    hautr_mur = (700 * 50) / corr_dst;
-    dbt_pxl = (700 / 2) - (hautr_mur / 2);
-    fin_pxl = (700 / 2) + (hautr_mur / 2);
+    hautr_mur = (HEIGHT * 50) / corr_dst;
+    dbt_pxl = (HEIGHT / 2) - (hautr_mur / 2);
+    fin_pxl = (HEIGHT / 2) + (hautr_mur / 2);
     ft_algo(cos_angle, sin_angle, &march_x, &march_y, &ch_x, &ch_y, 
               &cast_x, &cast_y, game->cub.player.player_x, game->cub.player.player_y);
     perform_dda(&cast_x, &cast_y, &ch_x, &ch_y, fb_x, fb_y, 
@@ -252,7 +255,6 @@ void cast_ray(t_jeux *game, float start, int i)
 }
 
 /*
-
 void cast_ray(t_jeux *game, float start, int i)
 {
     float cos_angle = cos(start);
@@ -420,25 +422,37 @@ void cast_ray(t_jeux *game, float start, int i)
 }
 */
 
-void my_raycasting_function(t_jeux *game)
+int my_raycasting_function(t_jeux *game)
 {
-    float next = (PI / 3) / WIDTH;
-    float start = game->cub.player.angle  - (PI / 6);
-    int i = 0;
-    // float my_angle = atan2(190, 254);
-    // float my_angle2 = atan2(270, 350);
-    // printf("--new angle is: %f---and your angle is: %f\n", my_angle, my_angle2);
+	float next = (PI / 3) / WIDTH;
+	float start = game->cub.player.angle  - (PI / 6);
+	int i = 0;
+	static int	index = 0;
+	static int	frame_counter = 0;
+	int			width;
+	int			height;
+
+	if (index >= FRAMES)
+		index = 0;
+	width = game->cub.player.width_player[index];  
+	height = game->cub.player.height_player[index];
 	while(i < WIDTH)
 	{
-		// printf("i is: %d and start += next is : %f\n", i, start += next);
-		cast_ray(game, start,i);
+		cast_ray(game, start, i);
 		start += next;
 		i++;
-		// printf("i is: %d and start += next is : %f\n", i, start + next);
-		// usleep(600);
 	}
-    mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
+	if (game->keys.up == 1)
+		put_pl_hands(game, game->cub.player.addr_player[index], width, height);
+	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
+	if (++frame_counter >= 2 && game->keys.up == 1)
+	{
+		frame_counter = 0;
+		index+=5;
+	}
+	return (0);
 }
+
 
 
 

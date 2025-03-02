@@ -8,6 +8,7 @@
 // c ---->6
 // map--->7
 
+
 int	check_xpm_file(char *line)
 {
 	char *texture;
@@ -24,15 +25,31 @@ int	check_xpm_file(char *line)
 	return (0);
 }
 
+void fix_texture(char **line)
+{
+	int i = 0;
+	char *str;
+
+	while (!ft_isspace((*line)[i], 0))
+		i++;
+	str = ft_substr((*line), 0, i);
+	free(*line);
+	*line = str;
+}
+
 int check_textures(t_cub3d *game)
 {
 	if (!check_xpm_file(game->we_texture)||
 		!check_xpm_file(game->so_texture) ||
-			!check_xpm_file(game->so_texture) ||
-				!check_xpm_file(game->so_texture))
+			!check_xpm_file(game->no_texture) ||
+				!check_xpm_file(game->ea_texture))
 	{
 		return (0);
 	}
+	fix_texture(&game->we_texture);
+	fix_texture(&game->so_texture);
+	fix_texture(&game->no_texture);
+	fix_texture(&game->ea_texture);
 	return (1);
 }
 
@@ -92,7 +109,7 @@ int	parse_texture(t_cub3d *game, int texture_type, int i)
 			*my_texture = ft_substr(game->cub[i], start, ft_strlen(game->cub[i]) - start);
 	}
 	if (parse_fc_colors(f_color, c_color, game) == 0)
-		return_free_error("Invalid Colors!", game);
+		return_free_error("\nInvalid Colors!", game);
 	return (1);
 }
 
@@ -114,11 +131,11 @@ int	split_my_elements(t_cub3d *game)
 		// exit(32);
 		my_texture = is_a_texture(read_cub[i]);
 		if (!my_texture)
-			return_free_error("Invalid texture", game);
+			return_free_error("\nInvalid texture", game);
 		else if(my_texture > 0 && my_texture < 7)
 		{
 			if (parse_texture(game, my_texture, i) == 0)
-				return_free_error("Invalid textures!", game);
+				return_free_error("\nInvalid textures!", game);
 		}
 		else
 			break;

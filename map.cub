@@ -1,11 +1,13 @@
 
-SO textures/wall_2.xpm
+SO              texture/111.xpm   
+
+
 F 184,113,39
 
-WE textures/wall_3.xpm         
-NO      textures/wall_1.xpm         
+WE texture/img.xpm         
+NO      texture/ff.xpm         
 
-EA textures/wall_4.xpm
+EA texture/ff.xpm
 
 
 
@@ -13,7 +15,7 @@ C 184,113,39
 
 11111111111111111111111111
 10000000000000000000000001
-10000000000000000000000001
+10000000000P00000000000001
 10000000000000000000000001
 10000000000000000000000001
 10000000000000010101000001

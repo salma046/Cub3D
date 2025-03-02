@@ -2,13 +2,13 @@
 
 void ft_put_pixel(int x, int y, int color, t_jeux *game)
 {
-    if(x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
-        return;
-    
-    int index = y * game->size_line + x * game->bpp / 8;
-    game->data[index] = color & 0xFF;
-    game->data[index + 1] = (color >> 8) & 0xFF;
-    game->data[index + 2] = (color >> 16) & 0xFF;
+	if(x >= WIDTH || y >= HEIGHT || x < 0 || y < 0)
+		return;
+		
+	int index = y * game->size_line + x * game->bpp / 8;
+	game->data[index] = color & 0xFF;
+	game->data[index + 1] = (color >> 8) & 0xFF;
+	game->data[index + 2] = (color >> 16) & 0xFF;
 	// exit(32);
 }
 
@@ -68,12 +68,13 @@ int main(int ac, char *av[])
 		return_error("Invalid map!");
 	parsing(game, &jeux);
 	jeux.mlx = mlx_init();
-	ft_init_text(game, jeux.mlx);
+	ft_init_text(&jeux, game, jeux.mlx);
+	ft_init_player(game, &jeux);
 	jeux.win = mlx_new_window(jeux.mlx, WIDTH, HEIGHT, "Cub3d");
 	jeux.img = mlx_new_image(jeux.mlx, WIDTH, HEIGHT);
 
-    jeux.data = mlx_get_data_addr(jeux.img, &jeux.bpp, &jeux.size_line, &jeux.endian);
-    mlx_put_image_to_window(jeux.mlx, jeux.win, jeux.img, 0, 0);
+	jeux.data = mlx_get_data_addr(jeux.img, &jeux.bpp, &jeux.size_line, &jeux.endian);
+	mlx_put_image_to_window(jeux.mlx, jeux.win, jeux.img, 0, 0);
 	
 	mlx_hook(jeux.win, 6, 1L << 6, ft_mouse, &jeux);
 
