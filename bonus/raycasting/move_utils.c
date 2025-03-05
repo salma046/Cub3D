@@ -26,7 +26,7 @@ int ft_verf_wall(t_jeux *jeux, float new_x, float new_y, float buffer)
             check_y = map_y + offset_y;
             if (check_x < 0 || check_y < 0 || check_x >= WIDTH/50 || check_y >= HEIGHT/50)
                 continue;  
-            if (jeux->cub.cub_map[check_y][check_x] == '1') 
+            if (jeux->cub.cub_map[check_y][check_x] == '1' || jeux->cub.cub_map[check_y][check_x] == 'D') 
             {
                 cell_center_x = (check_x * 50) + 25;
                 cell_center_y = (check_y * 50) + 25;
@@ -95,6 +95,39 @@ void ft_move_player(t_jeux *jeux)
         jeux->cub.player.player_y = next_y;
     }
 }
+void ft_porte(t_jeux *jeux)
+{
+    int map_x;
+    int map_y;
+	int dy;
+	int dx;
+	int check_x;
+	int check_y;
+
+	map_x = (int)(jeux->cub.player.player_x / 50);
+	map_y = (int)(jeux->cub.player.player_y / 50);
+	dy = -1;
+    while (dy <= 1)
+    {
+		dx = -1;
+        while (dx <= 1)
+        {
+            check_x = map_x + dx;
+            check_y = map_y + dy;
+
+            if (check_x < 0 || check_y < 0 || check_x >= WIDTH/50 || check_y >= HEIGHT/50)
+                continue;
+            if (jeux->cub.cub_map[check_y][check_x] == 'D')
+            {
+                jeux->cub.cub_map[check_y][check_x] = '0'; 
+                return;
+            }
+			dx++;
+        }
+		dy++;
+    }
+}
+
 int	handle_key_press(int key_press, t_jeux *jeux)
 {
 	if (key_press == 65363)
@@ -109,6 +142,8 @@ int	handle_key_press(int key_press, t_jeux *jeux)
 		jeux->keys.right = 1;
 	if (key_press == 97)
 		jeux->keys.left = 1;
+	if (key_press == 101) 
+        ft_porte(jeux);
 	if (key_press == 65307)
 	{
 		mlx_destroy_window(jeux->mlx, jeux->win);

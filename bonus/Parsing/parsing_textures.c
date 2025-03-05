@@ -38,7 +38,7 @@ int check_textures(t_cub3d *game)
 
 int	is_a_map(char *line)
 {
-	if (line[0] == '1')
+	if (line[0] == '1' || line[0] )
 		return (1);
 	return (0);
 }

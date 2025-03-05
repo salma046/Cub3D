@@ -107,7 +107,7 @@ void	draw_walls(int p_x, int p_y, t_jeux *jeux)
 		j = 0;
 		while (jeux->cub.cub_map[i][j])
 		{
-			if (jeux->cub.cub_map[i][j] == '1')
+			if (jeux->cub.cub_map[i][j] == '1' || jeux->cub.cub_map[i][j] == 'D')
 			{
 				check_distance(p_x, p_y, i, j, jeux, 0x3291a8);
 					// draw_minimap();
@@ -182,7 +182,7 @@ void	draw_map(t_jeux *jeux)
 		x = 0;
 		while (map[y][x])
 		{
-			if (map[y][x] == '1')
+			if (map[y][x] == '1' || map[y][x] == 'D')
 			{
 				i = 0;
 				while (i < block_size)

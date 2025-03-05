@@ -27,10 +27,12 @@ int	check_for_player(t_cub3d *game)
 		}
 		i++;
 	}
+	/*
 	if (count == 0)
 		return_free_error("No player found!", game);
 	else if (count != 1)
 		return_free_error("Multiple players found!", game);
+	*/
 	return (1);
 }
 

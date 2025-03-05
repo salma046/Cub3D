@@ -9,22 +9,22 @@ int no_walls(float ray_x, float ray_y, char **map)
     margin = 10.0; 
     x = ray_x / 50;
     y = ray_y / 50;
-    if (map[y][x] == '1')
+    if (map[y][x] == '1' || map[y][x] == 'D')
         return (0);
-    if (map[(int)((ray_y - margin) / 50)][x] == '1')
+    if (map[(int)((ray_y - margin) / 50)][x] == '1' || map[(int)((ray_y - margin) / 50)][x] == 'D')
         return (0);
-    if (map[(int)((ray_y + margin) / 50)][x] == '1')
+    if (map[(int)((ray_y + margin) / 50)][x] == '1' || map[(int)((ray_y + margin) / 50)][x] == 'D')
         return (0);
-    if (map[y][(int)((ray_x - margin) / 50)] == '1')
+    if (map[y][(int)((ray_x - margin) / 50)] == '1' || map[y][(int)((ray_x - margin) / 50)] == 'D')
         return (0);
-    if (map[y][(int)((ray_x + margin) / 50)] == '1')
+    if (map[y][(int)((ray_x + margin) / 50)] == '1' || map[y][(int)((ray_x + margin) / 50)] == 'D')
         return (0);
     return (1);
 }
 
 void ft_init_text(t_cub3d *game,void *mlx)
 {
-    char *text[4]= {"texture/ff.xpm","texture/ff.xpm","texture/ff.xpm","texture/ff.xpm"};
+    char *text[5]= {"texture/ff.xpm","texture/ff.xpm","texture/ff.xpm","texture/ff.xpm","texture/c.xpm"};
     char *pl = "texture/11.xpm";
     char *cl = "texture/cl.xpm";
     int i = 0;
@@ -32,8 +32,9 @@ void ft_init_text(t_cub3d *game,void *mlx)
  
     if (!mlx)
         return_error("mlx non initialisé !");
-   while(i < 4)
+   while(i < 5)
     {
+        printf("****************************\n");
         game->texture[i].img = mlx_xpm_file_to_image(mlx,text[i],&game->texture[i].width,&game->texture[i].height);
         if(!game->texture[i].img)
             return_error("**********erreur");
@@ -66,7 +67,7 @@ float ft_calc_distan(t_jeux *game, float *ray_x, float *ray_y, float cos_angle, 
     float distance; 
     
     distance = 0;
-    while (game->cub.cub_map[(int)(*ray_y / 50)][(int)(*ray_x / 50)] != '1') 
+    while (game->cub.cub_map[(int)(*ray_y / 50)][(int)(*ray_x / 50)] != '1' && game->cub.cub_map[(int)(*ray_y / 50)][(int)(*ray_x / 50)] != 'D') 
     {
         *ray_x += cos_angle;
         *ray_y += sin_angle;
@@ -105,7 +106,7 @@ void ft_algo(float cos_angle, float sin_angle, int *march_x, int *march_y, float
 
 void perform_dda(int *cast_x, int *cast_y, float *ch_x, float *ch_y, float fb_x, float fb_y, int march_x, int march_y, int *is_vertical_hit, char **cub_map)
 {
-    while (cub_map[(int)(*cast_y / 50)][(int)(*cast_x / 50)] != '1') 
+    while (cub_map[(int)(*cast_y / 50)][(int)(*cast_x / 50)] != '1' && cub_map[(int)(*cast_y / 50)][(int)(*cast_x / 50)] != 'D' ) 
     {
         if (*ch_x < *ch_y) 
         {
@@ -150,8 +151,18 @@ void ft_soll(t_jeux *game, int i, int dbt_pxl)
 void ft_coord(int is_vertical_hit, int march_x, int march_y, float ray_x, float ray_y, int *txt_i, int *txt_x, t_jeux *game)
 {
     float impact_x;
+    int map_x;
+    int map_y;
 
-    if (is_vertical_hit)
+    map_x = (int)(ray_x / 50);
+    map_y = (int)(ray_y / 50);
+
+    if (game->cub.cub_map[map_y][map_x] == 'D')
+            {
+//                printf("6666666666666666666666666666666666\n");
+                *txt_i = 4;
+            }
+    else if (is_vertical_hit)
     {
         if (march_x == 1)
             *txt_i = 0; // mure est
@@ -184,6 +195,7 @@ void ft_wall(t_jeux *game, int i, int dbt_pxl, int fin_pxl, int hautr_mur, int t
     int coll;
 
     y = dbt_pxl;
+    
     while (y < fin_pxl) 
     {
         txt_y = ((y - dbt_pxl) * game->cub.texture[txt_i].height) / hautr_mur;

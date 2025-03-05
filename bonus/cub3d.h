@@ -63,7 +63,7 @@ typedef struct s_cub3d
 	char	**cub_copymap;
 	int		map_heigh;
 	int		map_width;
-	t_texture texture[4];
+	t_texture texture[5];
 	t_texture txt_plat;
 	t_texture txt_ciel;
 	t_player	player;
