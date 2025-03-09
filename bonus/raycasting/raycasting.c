@@ -25,7 +25,7 @@ int no_walls(float ray_x, float ray_y, char **map)
 void ft_init_text(t_cub3d *game,void *mlx)
 {
     char *text[5]= {"texture/ff.xpm","texture/ff.xpm","texture/ff.xpm","texture/ff.xpm","texture/c.xpm"};
-    char *pl = "texture/11.xpm";
+    char *pl = "texture/44.xpm";
     char *cl = "texture/cl.xpm";
     int i = 0;
 
@@ -34,7 +34,6 @@ void ft_init_text(t_cub3d *game,void *mlx)
         return_error("mlx non initialisé !");
    while(i < 5)
     {
-        printf("****************************\n");
         game->texture[i].img = mlx_xpm_file_to_image(mlx,text[i],&game->texture[i].width,&game->texture[i].height);
         if(!game->texture[i].img)
             return_error("**********erreur");
@@ -64,20 +63,53 @@ void ft_init_r(t_jeux *game, float start, float *cos_angle, float *sin_angle, fl
 // Calculate distance a wall
 float ft_calc_distan(t_jeux *game, float *ray_x, float *ray_y, float cos_angle, float sin_angle)
 {
-    float distance; 
+    float distance;
     
     distance = 0;
-    while (game->cub.cub_map[(int)(*ray_y / 50)][(int)(*ray_x / 50)] != '1' && game->cub.cub_map[(int)(*ray_y / 50)][(int)(*ray_x / 50)] != 'D') 
+    while (1) 
     {
-        *ray_x += cos_angle;
-        *ray_y += sin_angle;
         int map_x = (int)(*ray_x / 50);
         int map_y = (int)(*ray_y / 50);
+        
         if (map_x < 0 || map_y < 0 || map_x >= WIDTH || map_y >= HEIGHT) 
-            break; 
+            break;
+        if (game->cub.cub_map[map_y][map_x] == '1' || game->cub.cub_map[map_y][map_x] == 'D')
+            break;
+        *ray_x += cos_angle;
+        *ray_y += sin_angle;
         distance++;
     }
     return (distance);
+}
+void perform_dda(int *cast_x, int *cast_y, float *ch_x, float *ch_y, float fb_x, float fb_y, int march_x, int march_y, int *is_vertical_hit, char **cub_map)
+{
+    int map_x;
+    int map_y;
+
+    while (1) 
+    {
+        map_x = (int)(*cast_x / 50);
+        map_y = (int)(*cast_y / 50);
+        
+        if (map_x < 0 || map_y < 0 || map_x >= WIDTH || map_y >= HEIGHT) 
+            break;
+        if (cub_map[map_y][map_x] == '1' || cub_map[map_y][map_x] == 'D')
+            break;
+        if (*ch_x < *ch_y) 
+        {
+            *ch_x += fb_x;
+            *cast_x += march_x;
+            *is_vertical_hit = 1; // mure vertical
+        } 
+        else 
+        {
+            *ch_y += fb_y;
+            *cast_y += march_y;
+            *is_vertical_hit = 0; // muer horizontal
+        }
+        if (*ch_x > 10000 || *ch_y > 10000) 
+            break;
+    }
 }
 
 void ft_algo(float cos_angle, float sin_angle, int *march_x, int *march_y, float *ch_x, float *ch_y, int *cast_x, int *cast_y, float player_x, float player_y)
@@ -104,28 +136,7 @@ void ft_algo(float cos_angle, float sin_angle, int *march_x, int *march_y, float
     }
 }
 
-void perform_dda(int *cast_x, int *cast_y, float *ch_x, float *ch_y, float fb_x, float fb_y, int march_x, int march_y, int *is_vertical_hit, char **cub_map)
-{
-    while (cub_map[(int)(*cast_y / 50)][(int)(*cast_x / 50)] != '1' && cub_map[(int)(*cast_y / 50)][(int)(*cast_x / 50)] != 'D' ) 
-    {
-        if (*ch_x < *ch_y) 
-        {
-            *ch_x += fb_x;
-            *cast_x += march_x;
-            *is_vertical_hit = 1; // mure vertical
-        } 
-        else 
-        {
-            *ch_y += fb_y;
-            *cast_y += march_y;
-            *is_vertical_hit = 0; // muer horizontal
-        }
-        if (*ch_x > 10000 || *ch_y > 10000) 
-        {
-            break;
-        }
-    }
-}
+
 
 void ft_soll(t_jeux *game, int i, int dbt_pxl)
 {
@@ -223,6 +234,7 @@ void ft_floor(t_jeux *game, int i, int fin_pxl)
     int coll;
 
     y = fin_pxl;
+
     while(y < HEIGHT)
     {
         txt_x = (i * game->cub.txt_plat.width) / WIDTH;
@@ -237,6 +249,7 @@ void ft_floor(t_jeux *game, int i, int fin_pxl)
         }
         y++;
     }
+
 }
 
 void cast_ray(t_jeux *game, float start, int i)
