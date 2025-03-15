@@ -1,6 +1,5 @@
 #include "../cub3d.h"
 
-
 int	handle_close_button(t_jeux *jeux)
 {
 	ft_clean_mlx(jeux);
@@ -22,7 +21,6 @@ void ft_put_pixel(int x, int y, int color, t_jeux *game)
 	game->data[index] = color & 0xFF;
 	game->data[index + 1] = (color >> 8) & 0xFF;
 	game->data[index + 2] = (color >> 16) & 0xFF;
-	// exit(32);
 }
 
 void put_player(int x, int y, int color, t_jeux *game)
@@ -89,6 +87,6 @@ int main(int ac, char *av[])
 	mlx_hook(jeux.win, 17, 0, handle_close_button, &jeux);
 	mlx_loop_hook(jeux.mlx, gaming_ft, &jeux);
 	mlx_loop(jeux.mlx);
-	return_free_error("EVERY THING IS GoooooD\n", game);
+	// return_free_error("EVERY THING IS GoooooD\n", game);
 	// return (54);
 }

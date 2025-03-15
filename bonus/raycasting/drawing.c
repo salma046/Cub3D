@@ -79,16 +79,11 @@ int	check_distance(int mini_x, int mini_y, int wall_y, int wall_x, t_jeux *jeux,
 						((new_wally + i) <= (HEIGHT / 5) + 5 && (new_wally + i >= 15)))
 				{
 					ft_put_pixel(new_wallx + j, new_wally + i, color, jeux);
-					// if (check_edge(wall_y, wall_x, jeux) == 3)
-					// 	fill_colors(new_wallx, new_wally, jeux);
-
 				}
 				j++;
 			}
 			i++;
 		}
-		// 	exit (43);
-			// draw_empty_space()
 	}
 	return (0);
 }
@@ -97,9 +92,6 @@ void	draw_walls(int p_x, int p_y, t_jeux *jeux)
 {
 	int i;
 	int j;
-	// int x;
-	// int y;
-
 
 	i = 0;
 	while (jeux->cub.cub_map[i])
@@ -107,19 +99,12 @@ void	draw_walls(int p_x, int p_y, t_jeux *jeux)
 		j = 0;
 		while (jeux->cub.cub_map[i][j])
 		{
-			if (jeux->cub.cub_map[i][j] == '1')
-			{
+			if (jeux->cub.cub_map[i][j] == '1' || jeux->cub.cub_map[i][j] == 'D')
 				check_distance(p_x, p_y, i, j, jeux, 0x3291a8);
-					// draw_minimap();
-			}
 			if (jeux->cub.cub_map[i][j] == '0' || jeux->cub.cub_map[i][j] == jeux->cub.player.dir_player)
-			{
 				check_distance(p_x, p_y, i, j, jeux, 0xd1b2b0);
-					// draw_minimap();
-			}
 			j++;
 		}
-		// printf("%s", jeux->cub.cub_map[i]);
 		i++;
 	}
 }
@@ -130,34 +115,9 @@ void	mini_map(t_jeux *jeux)
 	int map_height;
 	int player_x;
 	int player_y;
-	int x;
-	int y;
 
 	map_width = WIDTH / 5;
 	map_height = HEIGHT / 5;
-	y = 10;
-
-	while (y < (map_height + 10))
-	{
-		x = 10;
-		while (x < (map_width + 10))
-		{
-			// if (y >= 15 && x >= 15 && y <= (map_height + 5) && x <= (map_width + 5))
-			// {
-			// 	ft_put_pixel(x, y, 0xd1b2b0, jeux);
-			// }
-			// else
-			// {
-			// if (y < 15 || y > (map_height + 5))
-			// 	ft_put_pixel(x, y, 0xe65a7d, jeux);
-			// if (x < 15 || x > (map_width + 5))
-			// 	ft_put_pixel(x, y, 0xe65a7d, jeux);
-			// // }
-			x++;
-		}
-		y++;
-	}
-
 	player_x = map_width / 2;
 	player_y = map_height / 2;
 	draw_walls(player_x, player_y, jeux);

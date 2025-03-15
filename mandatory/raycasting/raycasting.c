@@ -128,27 +128,6 @@ void perform_dda(int *cast_x, int *cast_y, float *ch_x, float *ch_y, float fb_x,
     }
 }
 
-void ft_soll(t_jeux *game, int i, int dbt_pxl)
-{
-	int	y;
-	int	txt_x;
-	int	txt_y;
-	int	coll;
-
-    y = 0;
-    while (y < dbt_pxl) 
-    {
-        txt_x = (i * game->cub.txt_ciel.width) / WIDTH;
-        txt_y = (y * game->cub.txt_ciel.height) / (HEIGHT / 2);
-        
-        coll = *(int *)(game->cub.txt_ciel.addr 
-                    + (txt_y * game->cub.txt_ciel.size_line + txt_x * (game->cub.txt_ciel.bpp / 8)));
-        
-        *(int *)(game->data + (y * game->size_line + i * (game->bpp / 8))) = coll;
-        y++;
-    }
-}
-
 void ft_coord(int is_vertical_hit, int march_x, int march_y, float ray_x, float ray_y, int *txt_i, int *txt_x, t_jeux *game)
 {
     float impact_x;
@@ -158,12 +137,8 @@ void ft_coord(int is_vertical_hit, int march_x, int march_y, float ray_x, float 
     map_x = (int)(ray_x / 50);
     map_y = (int)(ray_y / 50);
 
-	// // printf("the number of txt_x is : %d\n", *txt_x);
-	// printf("------the number of txt_x is : %d --- and txt_i is: %d\n", *txt_x, *txt_i);
-    // printf("the map y is: %d and the map x is : %d\n", map_y, map_x);
     if (map_y > 0 && map_x > 0 && map_y < game->cub.map_width && map_x < game->cub.map_heigh && game->cub.cub_map[map_y][map_x] == 'D')
             {
-//                printf("6666666666666666666666666666666666\n");
                 *txt_i = 4;
             }
     else if (is_vertical_hit)
@@ -180,33 +155,16 @@ void ft_coord(int is_vertical_hit, int march_x, int march_y, float ray_x, float 
         else
             *txt_i = 3; // mure nord
     }
-    // printf("the is vertical is : %d\n", is_vertical_hit);
     if (is_vertical_hit)
         impact_x = ray_y;
     else
-	{
         impact_x = ray_x;
-	}
-	// printf("heeeeelo world \n");
     impact_x = fmod(impact_x, 50);
-	// printf("heeeeelo world1\n");
-	// printf("the number of txt_x is : %d --- and txt_i is: %d and the width is: %d\n", *txt_x, *txt_i, game->cub.texture[*txt_i].width - 1);
     *txt_x = (int)((impact_x / 50.0) * (game->cub.texture[*txt_i].width - 1));
-	// printf("heeeeelo world2\n");
-	// printf("the txt li dayra lmochkil is equal to : %d\n", *txt_x);
-	// exit(22);
     if (*txt_x < 0)
-	{
-		// printf("hiiiiiiiiiiiiiiiiii0\n");
         *txt_x = 0;
-		// printf("hiiiiiiiiiiiiiiiiii01\n");
-	}
-	// printf("hiiiiiiiiiiiiiiiiii1\n");
     if (*txt_x >= game->cub.texture[*txt_i].width) 
-    {
 		*txt_x = game->cub.texture[*txt_i].width - 1;
-	}
-	// printf("hiiiiiiiiiiiiiiiiii2\n");
 }
 
 void ft_wall(t_jeux *game, int i, int dbt_pxl, int fin_pxl, int hautr_mur, int txt_i, int txt_x)
@@ -234,30 +192,30 @@ void ft_wall(t_jeux *game, int i, int dbt_pxl, int fin_pxl, int hautr_mur, int t
     }
 }
 
-// Render floor
 void ft_floor(t_jeux *game, int i, int fin_pxl)
 {
     int y;
-    int txt_x;
-    int txt_y;
-    int coll;
 
     y = fin_pxl;
-    while(y < HEIGHT)
+    while (y < HEIGHT)
     {
-        txt_x = (i * game->cub.txt_plat.width) / WIDTH;
-        txt_y = ((y - HEIGHT / 2) * game->cub.txt_plat.height) / (HEIGHT / 2);
-
-        if (txt_x >= 0 && txt_x < game->cub.txt_plat.width &&
-            txt_y >= 0 && txt_y < game->cub.txt_plat.height)
-        {
-            coll = *(int *)(game->cub.txt_plat.addr 
-                        + (txt_y * game->cub.txt_plat.size_line + txt_x * (game->cub.txt_plat.bpp / 8)));
-            *(int *)(game->data + (y * game->size_line + i * (game->bpp / 8))) = coll;
-        }
+        ft_put_pixel(i, y, 0x964B00, game); // Brown-like color for the floor
         y++;
     }
 }
+
+void ft_soll(t_jeux *game, int i, int fin_pxl)
+{
+    int y;
+
+    y = fin_pxl;
+    while (y < HEIGHT)
+    {
+        ft_put_pixel(i, y, 0x964B00, game); // Brown-like color for the floor
+        y++;
+    }
+}
+
 
 void cast_ray(t_jeux *game, float start, int i)
 {
@@ -273,7 +231,7 @@ void cast_ray(t_jeux *game, float start, int i)
     int dbt_pxl;
     int fin_pxl;
 
-	txt_i = -1;
+    txt_i = -1;
 	txt_x = 0;
     ft_init_r(game, start, &cos_angle, &sin_angle, &fb_x, &fb_y, &ray_x, &ray_y);
     cast_x = (int)ray_x;
