@@ -1,0 +1,101 @@
+11111
+10011
+10001
+10N0011
+1111111
+
+
+ (|| map[y][x+1] == '1' || map[y][x - 1] == '1' || 
+            map[y+1][x] == '1' || map[y-1][x] == '1')
+
+
+
+            next step : *Search leaks 
+                        *fix segfault in new map hh
+
+            to fix    :  *when walls are not aligned 
+                         *when width and height are small the animation is so fast
+                         *fix the floor and ceiling so they get the colors provided.
+                         *draw doors with other colors in minimap
+                         *textures sigfault                   (FIXED)
+                         *leak in this error(Error:  Player texture not found) suggested solution
+                          the one like you did for texture not found 
+                         *check the used files in Makefile and dele the not used ones
+
+
+
+
+
+
+/////////////to remplace the long function execeded 25 lines parse_player_textures ---->
+
+// const char **get_texture_chunk1(void)
+// {
+//     return (const char *[]) {
+//         "texture/player_anim/take1.xpm", "texture/player_anim/take2.xpm",
+//         "texture/player_anim/take3.xpm", "texture/player_anim/take4.xpm",
+//         "texture/player_anim/take5.xpm", "texture/player_anim/take6.xpm",
+//         "texture/player_anim/take7.xpm", "texture/player_anim/take8.xpm",
+//         "texture/player_anim/take9.xpm", "texture/player_anim/take10.xpm",
+//         "texture/player_anim/take11.xpm", "texture/player_anim/take12.xpm",
+//         "texture/player_anim/take13.xpm", "texture/player_anim/take14.xpm",
+//         "texture/player_anim/take15.xpm", "texture/player_anim/take16.xpm",
+//         "texture/player_anim/take17.xpm", "texture/player_anim/take18.xpm",
+//         "texture/player_anim/take19.xpm", "texture/player_anim/take20.xpm",
+//         "texture/player_anim/take21.xpm", "texture/player_anim/take22.xpm",
+//         "texture/player_anim/take23.xpm", "texture/player_anim/take24.xpm",
+//         "texture/player_anim/take25.xpm", "texture/player_anim/take26.xpm",
+//         "texture/player_anim/take27.xpm", "texture/player_anim/take28.xpm",
+//         "texture/player_anim/take29.xpm", "texture/player_anim/take30.xpm",
+//     };
+// }
+
+// const char *get_texture_chunk2(void)
+// {
+//     return (const char *[]) {
+//         "texture/player_anim/take31.xpm", "texture/player_anim/take32.xpm",
+//         "texture/player_anim/take33.xpm", "texture/player_anim/take34.xpm",
+//         "texture/player_anim/take35.xpm", "texture/player_anim/take36.xpm",
+//         "texture/player_anim/take37.xpm", "texture/player_anim/take38.xpm",
+//         "texture/player_anim/take39.xpm", "texture/player_anim/take40.xpm",
+//         "texture/player_anim/take41.xpm", "texture/player_anim/take42.xpm",
+//         "texture/player_anim/take43.xpm", "texture/player_anim/take44.xpm",
+//         "texture/player_anim/take45.xpm", "texture/player_anim/take46.xpm",
+//         "texture/player_anim/take47.xpm", "texture/player_anim/take48.xpm",
+//         "texture/player_anim/take49.xpm", "texture/player_anim/take50.xpm",
+//         "texture/player_anim/take51.xpm", "texture/player_anim/take52.xpm",
+//         "texture/player_anim/take53.xpm", "texture/player_anim/take54.xpm",
+//         "texture/player_anim/take55.xpm", "texture/player_anim/take56.xpm",
+//         "texture/player_anim/take57.xpm", "texture/player_anim/take58.xpm",
+//         "texture/player_anim/take59.xpm", "texture/player_anim/take60.xpm",
+//     };
+// }
+
+// const char **get_texture_chunk3(void)
+// {
+//     return (const char *[]) {
+//         "texture/player_anim/take61.xpm", "texture/player_anim/take62.xpm",
+//         "texture/player_anim/take63.xpm", "texture/player_anim/take64.xpm",
+//         "texture/player_anim/take65.xpm", "texture/player_anim/take66.xpm",
+//         "texture/player_anim/take67.xpm", "texture/player_anim/take68.xpm",
+//         "texture/player_anim/take69.xpm",
+//     };
+// }
+
+// void parse_player_textures(t_cub3d *game, t_jeux *jeux)
+// {
+//     const char *tex[FRAMES];
+    
+//     // Combine all texture chunks into the tex array.
+//     const char **chunk1 = get_texture_chunk1();
+//     const char **chunk2 = get_texture_chunk2();
+//     const char **chunk3 = get_texture_chunk3();
+
+//     // Assign chunks to tex array (assuming FRAMES = 69).
+//     for (int i = 0; i < 30; i++) tex[i] = chunk1[i];
+//     for (int i = 0; i < 30; i++) tex[i + 30] = chunk2[i];
+//     for (int i = 0; i < 9; i++) tex[i + 60] = chunk3[i];
+
+//     // Call init_imgs with the tex array.
+//     init_imgs(jeux, game, tex);
+// }

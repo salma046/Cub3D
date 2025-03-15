@@ -15,18 +15,6 @@ void	ft_clean_mlx(t_jeux *jeux)
 		i++;
 	}
 	i = 0;
-	while (i < FRAMES)
-	{
-		if (jeux->cub.player.player[i])
-		{
-			mlx_destroy_image(jeux->mlx, jeux->cub.player.player[i]);
-		}
-		i++;
-	}
-	free(jeux->cub.player.player);
-	free(jeux->cub.player.addr_player);
-	free(jeux->cub.player.width_player);
-	free(jeux->cub.player.height_player);
 }
 
 int	handle_key_press(int key_press, t_jeux *jeux)
@@ -48,9 +36,6 @@ int	handle_key_press(int key_press, t_jeux *jeux)
 	if (key_press == 65307)
 	{
 		ft_clean_mlx(jeux);
-		free(jeux->cub.player.bpp_player);
-		free(jeux->cub.player.size_line_player);
-		free(jeux->cub.player.endian_player);
 		mlx_destroy_display(jeux->mlx);
 		free(jeux->mlx);
 		return_free_error("", &jeux->cub);
@@ -60,9 +45,9 @@ int	handle_key_press(int key_press, t_jeux *jeux)
 
 int	handle_key_release(int key_press, t_jeux *jeux)
 {
-	if (key_press == RIGHT)
+	if (key_press == 65363)
 		jeux->keys.rrotate = 0;
-	if (key_press == LEFT)
+	if (key_press == 65361)
 		jeux->keys.lrotate = 0;
 	if (key_press == 119)
 		jeux->keys.up = 0;
@@ -134,13 +119,49 @@ void	move_player(t_jeux *jeux)
 	jeux->cub.player.player_y = y_player;
 }
 
+
+void	draw_map(t_jeux *jeux)
+{
+	int		x;
+	int		y;
+	int		i;
+	int		j;
+	int		block_size;
+	char	**map;
+
+	y = 0;
+	block_size = 50;
+	map = jeux->cub.cub_map;
+	while (map[y])
+	{
+		x = 0;
+		while (map[y][x])
+		{
+			if (map[y][x] == '1')
+			{
+				i = 0;
+				while (i < block_size)
+				{
+					j = 0;
+					while (j < block_size)
+					{
+						ft_put_pixel(x * block_size + j, y * block_size + i, 0xf5d742, jeux);
+						j++;
+					}
+					i++;
+				}
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
 int	gaming_ft(t_jeux *jeux)
 {
 	move_player(jeux);
     clear_image(jeux);
 	my_raycasting_function(jeux);
 	// draw_map(jeux);
-	mini_map(jeux);
-	// ft_start(jeux);
 	return (0);
 }

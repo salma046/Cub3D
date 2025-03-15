@@ -1,4 +1,4 @@
-#include "../cub3d.h"
+#include "../../cub3d.h"
 
 
 void	draw_player(int player_x, int player_y, int diametre, t_jeux *jeux)
@@ -107,7 +107,7 @@ void	draw_walls(int p_x, int p_y, t_jeux *jeux)
 		j = 0;
 		while (jeux->cub.cub_map[i][j])
 		{
-			if (jeux->cub.cub_map[i][j] == '1' || jeux->cub.cub_map[i][j] == 'D')
+			if (jeux->cub.cub_map[i][j] == '1')
 			{
 				check_distance(p_x, p_y, i, j, jeux, 0x3291a8);
 					// draw_minimap();
@@ -165,39 +165,39 @@ void	mini_map(t_jeux *jeux)
 
 }
 
-void	draw_map(t_jeux *jeux)
-{
-	int		x;
-	int		y;
-	int		i;
-	int		j;
-	int		block_size;
-	char	**map;
+// void	draw_map(t_jeux *jeux)
+// {
+// 	int		x;
+// 	int		y;
+// 	int		i;
+// 	int		j;
+// 	int		block_size;
+// 	char	**map;
 
-	y = 0;
-	block_size = 50;
-	map = jeux->cub.cub_map;
-	while (map[y])
-	{
-		x = 0;
-		while (map[y][x])
-		{
-			if (map[y][x] == '1' || map[y][x] == 'D')
-			{
-				i = 0;
-				while (i < block_size)
-				{
-					j = 0;
-					while (j < block_size)
-					{
-						//ft_put_pixel(x * block_size + j, y * block_size + i, 0xf5d742, jeux);
-						j++;
-					}
-					i++;
-				}
-			}
-			x++;
-		}
-		y++;
-	}
-}
+// 	y = 0;
+// 	block_size = 50;
+// 	map = jeux->cub.cub_map;
+// 	while (map[y])
+// 	{
+// 		x = 0;
+// 		while (map[y][x])
+// 		{
+// 			if (map[y][x] == '1')
+// 			{
+// 				i = 0;
+// 				while (i < block_size)
+// 				{
+// 					j = 0;
+// 					while (j < block_size)
+// 					{
+// 						//ft_put_pixel(x * block_size + j, y * block_size + i, 0xf5d742, jeux);
+// 						j++;
+// 					}
+// 					i++;
+// 				}
+// 			}
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// }

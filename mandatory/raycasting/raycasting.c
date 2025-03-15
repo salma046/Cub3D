@@ -83,31 +83,32 @@ float ft_calc_distan(t_jeux *game, float *ray_x, float *ray_y, float cos_angle, 
 
 void ft_algo(float cos_angle, float sin_angle, int *march_x, int *march_y, float *ch_x, float *ch_y, int *cast_x, int *cast_y, float player_x, float player_y)
 {
-    if (cos_angle < 0) 
-    {
-        *march_x = -1;
-        *ch_x = (player_x - *cast_x) * fabs(1 / cos_angle);
-    } 
-    else 
-    {
-        *march_x = 1;
-        *ch_x = (*cast_x + 1 - player_x) * fabs(1 / cos_angle);
-    }    
-    if (sin_angle < 0) {
-        *march_y = -1;
-        *ch_y = (player_y - *cast_y) * fabs(1 / sin_angle);
-    } 
-    else 
-    {
-        *march_y = 1;
-        *ch_y = (*cast_y + 1 - player_y) * fabs(1 / sin_angle);
-    }
+	if (cos_angle < 0) 
+	{
+		*march_x = -1;
+		*ch_x = (player_x - *cast_x) * fabs(1 / cos_angle);
+	} 
+	else 
+	{
+		*march_x = 1;
+		*ch_x = (*cast_x + 1 - player_x) * fabs(1 / cos_angle);
+	}
+	if (sin_angle < 0) {
+		*march_y = -1;
+		*ch_y = (player_y - *cast_y) * fabs(1 / sin_angle);
+	}
+	else
+	{
+		*march_y = 1;
+		*ch_y = (*cast_y + 1 - player_y) * fabs(1 / sin_angle);
+	}
 }
 
 void perform_dda(int *cast_x, int *cast_y, float *ch_x, float *ch_y, float fb_x, float fb_y, int march_x, int march_y, int *is_vertical_hit, char **cub_map)
 {
     while (cub_map[(int)(*cast_y / 50)][(int)(*cast_x / 50)] != '1' && cub_map[(int)(*cast_y / 50)][(int)(*cast_x / 50)] != 'D' )
     {
+		// ft_put_pixel(*cast_x, *cast_y, 0x03d3fc, game);
         if (*ch_x < *ch_y) 
         {
             *ch_x += fb_x;
@@ -129,10 +130,10 @@ void perform_dda(int *cast_x, int *cast_y, float *ch_x, float *ch_y, float fb_x,
 
 void ft_soll(t_jeux *game, int i, int dbt_pxl)
 {
-    int y;
-    int txt_x;
-    int txt_y;
-    int coll;
+	int	y;
+	int	txt_x;
+	int	txt_y;
+	int	coll;
 
     y = 0;
     while (y < dbt_pxl) 
@@ -157,6 +158,9 @@ void ft_coord(int is_vertical_hit, int march_x, int march_y, float ray_x, float 
     map_x = (int)(ray_x / 50);
     map_y = (int)(ray_y / 50);
 
+	// // printf("the number of txt_x is : %d\n", *txt_x);
+	// printf("------the number of txt_x is : %d --- and txt_i is: %d\n", *txt_x, *txt_i);
+    // printf("the map y is: %d and the map x is : %d\n", map_y, map_x);
     if (map_y > 0 && map_x > 0 && map_y < game->cub.map_width && map_x < game->cub.map_heigh && game->cub.cub_map[map_y][map_x] == 'D')
             {
 //                printf("6666666666666666666666666666666666\n");
@@ -168,24 +172,41 @@ void ft_coord(int is_vertical_hit, int march_x, int march_y, float ray_x, float 
             *txt_i = 0; // mure est
         else
             *txt_i = 1; // mure ouest
-    }  
-    else 
+    }
+    else
     {
         if (march_y == 1)
             *txt_i = 2; // mure sude
         else
             *txt_i = 3; // mure nord
     }
+    // printf("the is vertical is : %d\n", is_vertical_hit);
     if (is_vertical_hit)
         impact_x = ray_y;
     else
+	{
         impact_x = ray_x;
+	}
+	// printf("heeeeelo world \n");
     impact_x = fmod(impact_x, 50);
+	// printf("heeeeelo world1\n");
+	// printf("the number of txt_x is : %d --- and txt_i is: %d and the width is: %d\n", *txt_x, *txt_i, game->cub.texture[*txt_i].width - 1);
     *txt_x = (int)((impact_x / 50.0) * (game->cub.texture[*txt_i].width - 1));
-    if (*txt_x < 0) 
+	// printf("heeeeelo world2\n");
+	// printf("the txt li dayra lmochkil is equal to : %d\n", *txt_x);
+	// exit(22);
+    if (*txt_x < 0)
+	{
+		// printf("hiiiiiiiiiiiiiiiiii0\n");
         *txt_x = 0;
+		// printf("hiiiiiiiiiiiiiiiiii01\n");
+	}
+	// printf("hiiiiiiiiiiiiiiiiii1\n");
     if (*txt_x >= game->cub.texture[*txt_i].width) 
-        *txt_x = game->cub.texture[*txt_i].width - 1;
+    {
+		*txt_x = game->cub.texture[*txt_i].width - 1;
+	}
+	// printf("hiiiiiiiiiiiiiiiiii2\n");
 }
 
 void ft_wall(t_jeux *game, int i, int dbt_pxl, int fin_pxl, int hautr_mur, int txt_i, int txt_x)
@@ -252,7 +273,7 @@ void cast_ray(t_jeux *game, float start, int i)
     int dbt_pxl;
     int fin_pxl;
 
-    txt_i = -1;
+	txt_i = -1;
 	txt_x = 0;
     ft_init_r(game, start, &cos_angle, &sin_angle, &fb_x, &fb_y, &ray_x, &ray_y);
     cast_x = (int)ray_x;
@@ -272,38 +293,18 @@ void cast_ray(t_jeux *game, float start, int i)
     ft_floor(game, i, fin_pxl);
 }
 
+
 int my_raycasting_function(t_jeux *game)
 {
 	float next = (PI / 3) / WIDTH;
 	float start = game->cub.player.angle  - (PI / 6);
 	int i = 0;
-	static int	index = 0;
-	static int	frame_counter = 0;
-	int			width;
-	int			height;
-
-	if (index >= FRAMES)
-		index = 0;
-	width = game->cub.player.width_player[index];  
-	height = game->cub.player.height_player[index];
 	while(i < WIDTH)
 	{
 		cast_ray(game, start, i);
 		start += next;
 		i++;
 	}
-	if (game->keys.up == 1)
-		put_pl_hands(game, game->cub.player.addr_player[index], width, height);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
-	if (++frame_counter >= 2 && game->keys.up == 1)
-	{
-		frame_counter = 0;
-		index+=4;
-	}
 	return (0);
 }
-
-
-
-
-/// WIDTH then HEIGHT 
