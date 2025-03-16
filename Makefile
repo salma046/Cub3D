@@ -1,22 +1,23 @@
 SRC = mandatory/main.c gnl/get_next_line.c gnl/get_next_line_utils.c \
 		Parsing/parsing_file.c libft/ft_strncmp.c \
-		libft/ft_substr.c  libft/ft_atoi.c \
+		libft/ft_substr.c  libft/ft_atoi.c Parsing/init_utils.c \
 		Parsing/parsing_textures.c Parsing/parsing_map.c \
-		Parsing/parsing_colors.c libft/ft_isspace.c \
+		Parsing/parsing_colors.c libft/ft_isspace.c mandatory/raycasting/move.c \
 		libft/ft_strjoin.c libft/ft_memset.c ft_errors.c \
-		Parsing/init_data2.c Parsing/init_data.c \
+		Parsing/init_data2.c Parsing/init_data.c Parsing/parsing_utils.c \
 		mandatory/raycasting/raycasting.c mandatory/raycasting/move_utils.c \
 
 SRCB = bonus/main.c gnl/get_next_line.c gnl/get_next_line_utils.c \
 		Parsing/parsing_file.c libft/ft_strncmp.c \
-		libft/ft_substr.c  libft/ft_atoi.c \
+		libft/ft_substr.c  libft/ft_atoi.c Parsing/init_utils.c \
 		Parsing/parsing_textures.c Parsing/parsing_map.c \
-		Parsing/parsing_colors.c libft/ft_isspace.c \
+		Parsing/parsing_colors.c libft/ft_isspace.c bonus/bonus_utils.c \
 		libft/ft_strjoin.c libft/ft_memset.c ft_errors.c \
-		Parsing/init_data2.c Parsing/init_data_bonus.c \
+		Parsing/init_data2.c Parsing/init_data_bonus.c mandatory/raycasting/move.c \
 		bonus/raycasting/raycasting.c bonus/raycasting/move_utils.c \
-		bonus/raycasting/drawing.c \
-		bonus/gaming/animation.c bonus/gaming/animation_frames.c
+		bonus/raycasting/drawing.c Parsing/parsing_utils.c \
+		bonus/gaming/animation.c bonus/gaming/animation_frames.c \
+		bonus/gaming/assign_textures.c
 
 NAMEBONUS = Cub3D_bonus
 NAME = Cub3D

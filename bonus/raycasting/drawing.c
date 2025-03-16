@@ -43,9 +43,9 @@ int	check_distance(int mini_x, int mini_y, int wall_y, int wall_x, t_jeux *jeux,
 			while (j < 20)
 			{
 				if (((new_wallx + j) <= (WIDTH / 5) + 5 && (new_wallx
-							+ j) >= 15) &&
-					((new_wally + i) <= (HEIGHT / 5) + 5 && (new_wally
-								+ i >= 15)))
+							+ j) >= 15)
+					&& ((new_wally + i) <= (HEIGHT / 5) + 5 && (new_wally
+							+ i >= 15)))
 				{
 					ft_put_pixel(new_wallx + j, new_wally + i, color, jeux);
 				}

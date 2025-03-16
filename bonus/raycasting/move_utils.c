@@ -2,7 +2,7 @@
 
 void	ft_clean_mlx(t_jeux *jeux)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	mlx_destroy_window(jeux->mlx, jeux->win);
@@ -74,7 +74,8 @@ int	handle_key_release(int key_press, t_jeux *jeux)
 		jeux->keys.left = 0;
 	return (0);
 }
-void clear_image(t_jeux *game)
+
+void	clear_image(t_jeux *game)
 {
 	int	y;
 	int	x;
@@ -92,55 +93,11 @@ void clear_image(t_jeux *game)
 	}
 }
 
-void	move_player(t_jeux *jeux)
-{
-	float	angle_rotation;
-	float	x_player;
-	float	y_player;
-	int		next_movecos;
-	int		next_movesin;
-
-	angle_rotation = PI / 18;
-	x_player = jeux->cub.player.player_x;
-	y_player = jeux->cub.player.player_y;
-	next_movecos = 4 * cos(jeux->cub.player.angle);
-	next_movesin = 4 * sin(jeux->cub.player.angle);
-	if (jeux->keys.rrotate)
-		jeux->cub.player.angle += angle_rotation;
-	if (jeux->keys.lrotate)
-		jeux->cub.player.angle -= angle_rotation;
-
-	if (jeux->keys.up && no_walls(x_player + next_movecos, y_player + next_movesin, jeux->cub.cub_map))
-	{
-		x_player += next_movecos;
-		y_player += next_movesin;
-	}
-	if (jeux->keys.down && no_walls(x_player - next_movecos, y_player - next_movesin, jeux->cub.cub_map))
-	{
-		x_player -= next_movecos;
-		y_player -= next_movesin;
-	}
-	if (jeux->keys.right && no_walls(x_player - next_movesin, y_player + next_movecos, jeux->cub.cub_map))
-	{
-		x_player -= next_movesin;
-		y_player += next_movecos;
-	}
-	if (jeux->keys.left && no_walls(x_player + next_movesin, y_player - next_movecos, jeux->cub.cub_map))
-	{
-		x_player += next_movesin;
-		y_player -= next_movecos;
-	}
-	jeux->cub.player.player_x = x_player;
-	jeux->cub.player.player_y = y_player;
-}
-
 int	gaming_ft(t_jeux *jeux)
 {
 	move_player(jeux);
-    clear_image(jeux);
+	clear_image(jeux);
 	my_raycasting_function(jeux);
-	// draw_map(jeux);
 	mini_map(jeux);
-	// ft_start(jeux);
 	return (0);
 }

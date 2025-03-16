@@ -16,13 +16,13 @@ int	ft_isspace(char c, int type)
 {
 	if (type == 1)
 	{
-		return (c == ' ' || c == '\t' ||c == '\v' ||
-			c == '\f' || c == '\r');
+		return (c == ' ' || c == '\t' || c == '\v'
+			|| c == '\f' || c == '\r');
 	}
 	else
 	{
-		return (c == ' ' || c == '\t' || c == '\n' ||
-				c == '\v' || c == '\f' || c == '\r');
+		return (c == ' ' || c == '\t' || c == '\n'
+			|| c == '\v' || c == '\f' || c == '\r');
 	}
 }
 
@@ -33,7 +33,7 @@ int	is_empty(char *line)
 	i = 0;
 	while (ft_isspace(line[i], 0))
 		i++;
-	if(line[i] == '\0')
+	if (line[i] == '\0')
 		return (0);
 	return (1);
 }
@@ -41,7 +41,7 @@ int	is_empty(char *line)
 void	is_whitespaces(char **line)
 {
 	if (!line || !(*line))
-		return;
+		return ;
 	while (**line && ft_isspace(**line, 0))
 		(*line)++;
 }

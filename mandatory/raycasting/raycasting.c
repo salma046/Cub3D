@@ -254,16 +254,16 @@ void	cast_ray(t_jeux *game, float start, int i)
 	int	hautr_mur;
 	int	dbt_pxl;
 	int	fin_pxl;
-
 	float	cos_angle, sin_angle, fb_x, fb_y, ray_x, ray_y;
 	float	distance, corr_dst;
-	int march_x, march_y;
-	float ch_x, ch_y;
-	int txt_i, txt_x;
+	int	march_x, march_y;
+	float	ch_x, ch_y;
+	int	txt_i, txt_x;
+
 	txt_i = -1;
 	txt_x = 0;
 	ft_init_r(game, start, &cos_angle, &sin_angle, &fb_x, &fb_y, &ray_x,
-			&ray_y);
+		&ray_y);
 	cast_x = (int)ray_x;
 	cast_y = (int)ray_y;
 	distance = ft_calc_distan(game, &ray_x, &ray_y, cos_angle, sin_angle);
@@ -272,12 +272,12 @@ void	cast_ray(t_jeux *game, float start, int i)
 	dbt_pxl = (HEIGHT / 2) - (hautr_mur / 2);
 	fin_pxl = (HEIGHT / 2) + (hautr_mur / 2);
 	ft_algo(cos_angle, sin_angle, &march_x, &march_y, &ch_x, &ch_y, &cast_x,
-			&cast_y, game->cub.player.player_x, game->cub.player.player_y);
+		&cast_y, game->cub.player.player_x, game->cub.player.player_y);
 	perform_dda(&cast_x, &cast_y, &ch_x, &ch_y, fb_x, fb_y, march_x, march_y,
-			&is_vertical_hit, game->cub.cub_map);
+		&is_vertical_hit, game->cub.cub_map);
 	ft_soll(game, i, dbt_pxl);
 	ft_coord(is_vertical_hit, march_x, march_y, ray_x, ray_y, &txt_i, &txt_x,
-			game);
+		game);
 	ft_wall(game, i, dbt_pxl, fin_pxl, hautr_mur, txt_i, txt_x);
 	ft_floor(game, i, fin_pxl);
 }

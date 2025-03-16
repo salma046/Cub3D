@@ -78,51 +78,6 @@ void	clear_image(t_jeux *game)
 	}
 }
 
-void	move_player(t_jeux *jeux)
-{
-	float	angle_rotation;
-	float	x_player;
-	float	y_player;
-	int		next_movecos;
-	int		next_movesin;
-
-	angle_rotation = PI / 18;
-	x_player = jeux->cub.player.player_x;
-	y_player = jeux->cub.player.player_y;
-	next_movecos = 4 * cos(jeux->cub.player.angle);
-	next_movesin = 4 * sin(jeux->cub.player.angle);
-	if (jeux->keys.rrotate)
-		jeux->cub.player.angle += angle_rotation;
-	if (jeux->keys.lrotate)
-		jeux->cub.player.angle -= angle_rotation;
-	if (jeux->keys.up && no_walls(x_player + next_movecos, y_player
-			+ next_movesin, jeux->cub.cub_map))
-	{
-		x_player += next_movecos;
-		y_player += next_movesin;
-	}
-	if (jeux->keys.down && no_walls(x_player - next_movecos, y_player
-			- next_movesin, jeux->cub.cub_map))
-	{
-		x_player -= next_movecos;
-		y_player -= next_movesin;
-	}
-	if (jeux->keys.right && no_walls(x_player - next_movesin, y_player
-			+ next_movecos, jeux->cub.cub_map))
-	{
-		x_player -= next_movesin;
-		y_player += next_movecos;
-	}
-	if (jeux->keys.left && no_walls(x_player + next_movesin, y_player
-			- next_movecos, jeux->cub.cub_map))
-	{
-		x_player += next_movesin;
-		y_player -= next_movecos;
-	}
-	jeux->cub.player.player_x = x_player;
-	jeux->cub.player.player_y = y_player;
-}
-
 int	gaming_ft(t_jeux *jeux)
 {
 	move_player(jeux);

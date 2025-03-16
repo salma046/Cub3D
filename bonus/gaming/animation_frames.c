@@ -1,7 +1,7 @@
 #include "../../cub3d.h"
 
-void	player_data(t_jeux *game, t_player_data *player,
-		int texture_width, int texture_height)
+void	player_data(t_jeux *game, t_player_data *player, int texture_width,
+		int texture_height)
 {
 	player->src_index = 0;
 	player->i = 0;
@@ -9,7 +9,6 @@ void	player_data(t_jeux *game, t_player_data *player,
 	player->x_scale = (float)(texture_width - 20) / WIDTH;
 	player->y_scale = (float)(texture_height - 20) / HEIGHT;
 }
-
 
 void	scale(t_player_data *player, int texture_width)
 {
@@ -34,7 +33,7 @@ void	put_pl_hands(t_jeux *game, int *pl, int texture_width,
 
 	player = malloc(sizeof(t_player_data));
 	if (!player)
-		return;
+		return ;
 	player->texture_addr = (unsigned int *)pl;
 	player_data(game, player, texture_width, texture_height);
 	while (player->i < HEIGHT)

@@ -1,12 +1,12 @@
 #include "cub3d.h"
 
-int return_error(char *error_str)
+int	return_error(char *error_str)
 {
 	printf("Error: %s\n", error_str);
 	exit(0);
 }
 
-int second_free_error(t_cub3d *game)
+int	second_free_error(t_cub3d *game)
 {
 	int	i;
 
@@ -25,10 +25,10 @@ int second_free_error(t_cub3d *game)
 	return (0);
 }
 
-int return_free_error(char *error_str, t_cub3d *game)
+int	return_free_error(char *error_str, t_cub3d *game)
 {
-	char **temp;
-	int i;
+	char	**temp;
+	int		i;
 
 	i = 0;
 	temp = game->cub;

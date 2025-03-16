@@ -38,7 +38,6 @@ int	main(int ac, char *av[])
 		return_error("\nInvalid map!");
 	parsing(game, &jeux);
 	jeux.mlx = mlx_init();
-	printf("world hello \n");
 	ft_init_text(&jeux, game, jeux.mlx);
 	jeux.win = mlx_new_window(jeux.mlx, WIDTH, HEIGHT, "Cub3d");
 	jeux.img = mlx_new_image(jeux.mlx, WIDTH, HEIGHT);

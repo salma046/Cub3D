@@ -1,11 +1,11 @@
 
-SO textures/wall_2.xpm
+SO texture/111.xpm
 F 184,113,39
 
-WE textures/wall_3.xpm         
-NO      textures/wall_1.xpm         
+WE texture/ff.xpm         
+NO      texture/ff.xpm        
 
-EA textures/wall_4.xpm
+EA texture/ff.xpm
 
 
 

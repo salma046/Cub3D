@@ -35,9 +35,7 @@ int	ft_my_atoi(const char *str)
 		i++;
 	}
 	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
-	{
 		i++;
-	}
 	if (str[i] && (str[i] < '0' || str[i] > '9'))
 		return (-1);
 	return (result * sign);
