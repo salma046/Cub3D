@@ -13,7 +13,7 @@ SRCB = bonus/main.c gnl/get_next_line.c gnl/get_next_line_utils.c \
 		Parsing/parsing_textures.c Parsing/parsing_map.c \
 		Parsing/parsing_colors.c libft/ft_isspace.c \
 		libft/ft_strjoin.c libft/ft_memset.c ft_errors.c \
-		Parsing/init_data2.c Parsing/init_data.c \
+		Parsing/init_data2.c Parsing/init_data_bonus.c \
 		bonus/raycasting/raycasting.c bonus/raycasting/move_utils.c \
 		bonus/raycasting/drawing.c \
 		bonus/gaming/animation.c bonus/gaming/animation_frames.c

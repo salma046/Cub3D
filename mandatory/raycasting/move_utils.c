@@ -2,7 +2,7 @@
 
 void	ft_clean_mlx(t_jeux *jeux)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	mlx_destroy_window(jeux->mlx, jeux->win);
@@ -59,7 +59,8 @@ int	handle_key_release(int key_press, t_jeux *jeux)
 		jeux->keys.left = 0;
 	return (0);
 }
-void clear_image(t_jeux *game)
+
+void	clear_image(t_jeux *game)
 {
 	int	y;
 	int	x;
@@ -94,23 +95,26 @@ void	move_player(t_jeux *jeux)
 		jeux->cub.player.angle += angle_rotation;
 	if (jeux->keys.lrotate)
 		jeux->cub.player.angle -= angle_rotation;
-
-	if (jeux->keys.up && no_walls(x_player + next_movecos, y_player + next_movesin, jeux->cub.cub_map))
+	if (jeux->keys.up && no_walls(x_player + next_movecos, y_player
+			+ next_movesin, jeux->cub.cub_map))
 	{
 		x_player += next_movecos;
 		y_player += next_movesin;
 	}
-	if (jeux->keys.down && no_walls(x_player - next_movecos, y_player - next_movesin, jeux->cub.cub_map))
+	if (jeux->keys.down && no_walls(x_player - next_movecos, y_player
+			- next_movesin, jeux->cub.cub_map))
 	{
 		x_player -= next_movecos;
 		y_player -= next_movesin;
 	}
-	if (jeux->keys.right && no_walls(x_player - next_movesin, y_player + next_movecos, jeux->cub.cub_map))
+	if (jeux->keys.right && no_walls(x_player - next_movesin, y_player
+			+ next_movecos, jeux->cub.cub_map))
 	{
 		x_player -= next_movesin;
 		y_player += next_movecos;
 	}
-	if (jeux->keys.left && no_walls(x_player + next_movesin, y_player - next_movecos, jeux->cub.cub_map))
+	if (jeux->keys.left && no_walls(x_player + next_movesin, y_player
+			- next_movecos, jeux->cub.cub_map))
 	{
 		x_player += next_movesin;
 		y_player -= next_movecos;
@@ -119,49 +123,10 @@ void	move_player(t_jeux *jeux)
 	jeux->cub.player.player_y = y_player;
 }
 
-
-void	draw_map(t_jeux *jeux)
-{
-	int		x;
-	int		y;
-	int		i;
-	int		j;
-	int		block_size;
-	char	**map;
-
-	y = 0;
-	block_size = 50;
-	map = jeux->cub.cub_map;
-	while (map[y])
-	{
-		x = 0;
-		while (map[y][x])
-		{
-			if (map[y][x] == '1')
-			{
-				i = 0;
-				while (i < block_size)
-				{
-					j = 0;
-					while (j < block_size)
-					{
-						ft_put_pixel(x * block_size + j, y * block_size + i, 0xf5d742, jeux);
-						j++;
-					}
-					i++;
-				}
-			}
-			x++;
-		}
-		y++;
-	}
-}
-
 int	gaming_ft(t_jeux *jeux)
 {
 	move_player(jeux);
-    clear_image(jeux);
+	clear_image(jeux);
 	my_raycasting_function(jeux);
-	// draw_map(jeux);
 	return (0);
 }

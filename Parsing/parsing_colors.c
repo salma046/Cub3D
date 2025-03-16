@@ -2,12 +2,12 @@
 
 int	check_fc_empty(char *colorf, char *colorc, t_cub3d *game)
 {
-    int i;
+	int	i;
 
-    i = 0;
+	i = 0;
 	if (colorf != NULL)
 	{
-		while(i < 3)
+		while (i < 3)
 		{
 			if (game->f_color[i] != -1)
 				return (free(colorf), -1);
@@ -18,7 +18,7 @@ int	check_fc_empty(char *colorf, char *colorc, t_cub3d *game)
 	i = 0;
 	if (colorc != NULL)
 	{
-		while(i < 3)
+		while (i < 3)
 		{
 			if (game->c_color[i] != -1)
 				return (free(colorc), -1);
@@ -29,14 +29,14 @@ int	check_fc_empty(char *colorf, char *colorc, t_cub3d *game)
 	return (0);
 }
 
-int parce_color(char *color, int *target_color)
+int	parce_color(char *color, int *target_color)
 {
 	int		i;
 	int		j;
 	int		count;
 	char	my_color[4];
 	int		my_int;
-	
+
 	i = 0;
 	j = 0;
 	count = 0;
@@ -60,18 +60,18 @@ int parce_color(char *color, int *target_color)
 
 int	parse_fc_colors(char *colorf, char *colorc, t_cub3d *game)
 {
-	int		checker;
+	int	checker;
 
 	if (!colorf && !colorc)
 		return (1);
 	checker = check_fc_empty(colorf, colorc, game);
 	if (checker == 0)
 		return (-1);
-    if (checker == -1)
+	if (checker == -1)
 		return (0);
 	if (checker == 1 && parce_color(colorf, game->f_color) == 0)
-        return (0);
-    if (checker == 2 && parce_color(colorc, game->c_color) == 0)
+		return (0);
+	if (checker == 2 && parce_color(colorc, game->c_color) == 0)
 		return (0);
 	return (1);
 }

@@ -1,6 +1,6 @@
 #include "../cub3d.h"
 
-int is_all_textures_found(t_cub3d *game)
+int	is_all_textures_found(t_cub3d *game)
 {
 	int	i;
 
@@ -8,15 +8,15 @@ int is_all_textures_found(t_cub3d *game)
 	if (!game->no_texture || !game->so_texture)
 		return (0);
 	if (!game->we_texture || !game->ea_texture)
-        return (0);
-	while(i < 3)
+		return (0);
+	while (i < 3)
 	{
 		if (game->f_color[i] == -1)
 			return (0);
 		i++;
 	}
 	i = 0;
-	while(i < 3)
+	while (i < 3)
 	{
 		if (game->c_color[i] == -1)
 			return (0);
@@ -58,7 +58,7 @@ int	fill_cub_map(t_cub3d *game, int i)
 	height = count_map_height(game->cub, i);
 	game->cub_map = (char **)malloc((height + 1) * sizeof(char *));
 	game->map_heigh = height;
-	while(read_cub[i] && check_end_map(read_cub[i]))
+	while (read_cub[i] && check_end_map(read_cub[i]))
 		game->cub_map[j++] = ft_strdup(read_cub[i++]);
 	game->cub_map[j] = NULL;
 	while (read_cub[i] && !check_end_map(read_cub[i]))
