@@ -1,4 +1,4 @@
-#include "../cub3d.h"
+#include "cube3d.h"
 
 void	ft_rota_sour(int dir, t_jeux *game, float rot)
 {

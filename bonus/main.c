@@ -1,4 +1,4 @@
-#include "../cub3d.h"
+#include "cube3d.h"
 
 int	handle_close_button(t_jeux *jeux)
 {
@@ -41,7 +41,8 @@ int	main(int ac, char *av[])
 		return_error("Invalid map!");
 	parsing(game, &jeux);
 	jeux.mlx = mlx_init();
-	ft_init_text(&jeux, game, jeux.mlx);
+	ft_init_text1(&jeux, game, jeux.mlx);
+	ft_init_text2(&jeux, game, jeux.mlx);
 	ft_init_player(game, &jeux);
 	jeux.win = mlx_new_window(jeux.mlx, WIDTH, HEIGHT, "Cub3d");
 	jeux.img = mlx_new_image(jeux.mlx, WIDTH, HEIGHT);

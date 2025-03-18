@@ -1,4 +1,4 @@
-#include "../../cub3d.h"
+#include "../cube3d.h"
 
 void	ft_clean_pl_mlx(t_jeux *jeux)
 {

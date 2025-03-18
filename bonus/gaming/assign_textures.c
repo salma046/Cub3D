@@ -1,4 +1,4 @@
-#include "../../cub3d.h"
+#include "../cube3d.h"
 
 void	fill_player_textures_1(const char **tex)
 {

@@ -1,4 +1,4 @@
-#include "../../cub3d.h"
+#include "../cube3d.h"
 
 void	draw_player(int player_x, int player_y, int diametre, t_jeux *jeux)
 {

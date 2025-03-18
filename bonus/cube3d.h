@@ -1,7 +1,7 @@
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUBE3D_H
+# define CUBE3D_H
 
-# include "gnl/get_next_line.h"
+# include "../gnl/get_next_line.h"
 # include <fcntl.h>
 # include <math.h>
 # include <mlx.h>
@@ -12,7 +12,7 @@
 # define PI 3.14159265359
 # define WIDTH 1300
 # define HEIGHT 700
-# define FRAMES 69 //78
+# define FRAMES 69 // 78
 
 # define W 119
 # define A 97
@@ -23,33 +23,32 @@
 
 typedef struct s_var
 {
-	float	next;
-	float	start;
-	int		i;
-	int		width;
-	int		height;
+	float			next;
+	float			start;
+	int				i;
+	int				width;
+	int				height;
 
-}			t_var;
+}					t_var;
 
-typedef struct s_ray 
+typedef struct s_ray
 {
-    float cos_angle, sin_angle, fb_x, fb_y, ray_x, ray_y;
-    float distance, corr_dst;
-    int march_x, march_y;
-    float ch_x, ch_y;
-    int is_vertical_hit;
-    int cast_x, cast_y;
-    int map_x, map_y;  
-    float impact_x;
-} t_ray;
+	float cos_angle, sin_angle, fb_x, fb_y, ray_x, ray_y;
+	float distance, corr_dst;
+	int march_x, march_y;
+	float ch_x, ch_y;
+	int				is_vertical_hit;
+	int cast_x, cast_y;
+	int map_x, map_y;
+	float			impact_x;
+}					t_ray;
 
-typedef struct s_rendering 
+typedef struct s_rendering
 {
-    int txt_i, txt_x;
-    int hautr_mur;
-    int dbt_pxl, fin_pxl;
-} t_rendering;
-
+	int txt_i, txt_x;
+	int				hautr_mur;
+	int dbt_pxl, fin_pxl;
+}					t_rendering;
 
 typedef struct s_player
 {
@@ -106,8 +105,10 @@ typedef enum s_enum
 
 typedef struct s_movement
 {
-	int	move_cos;
-	int	move_sin;
+	int				move_cos;
+	int				move_sin;
+	float 			next_x;
+	float 				next_y;
 }					t_movement;
 
 typedef struct s_texture
@@ -134,7 +135,7 @@ typedef struct s_cub3d
 	char			**cub_copymap;
 	int				map_heigh;
 	int				map_width;
-	t_texture		texture[4];
+	t_texture		texture[5];
 	t_texture		txt_plat;
 	t_texture		txt_ciel;
 	t_player		player;
@@ -169,8 +170,8 @@ typedef struct s_jeux
 
 ////////////////////////////////////
 /*Parsing*/
-void	ft_init_text1(t_jeux *jeux, t_cub3d *game, void *mlx);
-void	ft_init_text2(t_jeux *jeux, t_cub3d *game, void *mlx);
+void				ft_init_text1(t_jeux *jeux, t_cub3d *game, void *mlx);
+void				ft_init_text2(t_jeux *jeux, t_cub3d *game, void *mlx);
 int					check_file_valid(char *file);
 void				check_file(int ac, char *file);
 void				init_data(t_cub3d *game, t_jeux *jeux);
@@ -204,8 +205,6 @@ void				ft_clean_mlx(t_jeux *jeux);
 
 /////////////////////////////////////
 /*RayCasting */
-int					no_walls(float ray_x, float ray_y, char **map);
-int					my_raycasting_function(t_jeux *game);
 void				clear_image(t_jeux *game);
 void				ft_put_pixel(int x, int y, int color, t_jeux *game);
 int					handle_key_press(int key_press, t_jeux *jeux);
@@ -240,4 +239,5 @@ int					my_raycasting_function(t_jeux *game);
 void				ft_coord(t_ray *ray, int *txt_i, int *txt_x, t_jeux *game);
 
 void				cast_ray(t_jeux *game, float start, int i);
+
 #endif

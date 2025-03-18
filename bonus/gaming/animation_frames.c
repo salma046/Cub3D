@@ -1,4 +1,4 @@
-#include "../../cub3d.h"
+#include "../cube3d.h"
 
 void	player_data(t_jeux *game, t_player_data *player, int texture_width,
 		int texture_height)
