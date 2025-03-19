@@ -66,16 +66,15 @@ void	cast_ray(t_jeux *game, float start, int i)
 int	my_raycasting_function(t_jeux *game)
 {
 	t_var		var;
-	static int	index = 0;
-	static int	frame_counter = 0;
+	static int	index = 0, frame_counter = 0;
 
 	var.next = (PI / 3) / WIDTH;
 	var.start = game->cub.player.angle - (PI / 6);
 	if (index >= FRAMES)
 		index = 0;
 	var.i = 0;
-	var.height = game->cub.player.height_player[index];
-	var.width = game->cub.player.width_player[index];
+	var.h = game->cub.player.height_player[index];
+	var.w = game->cub.player.width_player[index];
 	while (var.i < WIDTH)
 	{
 		cast_ray(game, var.start, var.i);
@@ -83,8 +82,7 @@ int	my_raycasting_function(t_jeux *game)
 		var.i++;
 	}
 	if (game->keys.up == 1)
-		put_pl_hands(game, game->cub.player.addr_player[index], var.width,
-			var.height);
+		put_pl_hands(game, game->cub.player.addr_player[index], var.w, var.h);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	if (++frame_counter >= 2 && game->keys.up == 1)
 	{

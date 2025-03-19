@@ -40,10 +40,14 @@ int	no_walls(float ray_x, float ray_y, char **map)
 
 void	ft_init_text1(t_jeux *jeux, t_cub3d *game, void *mlx)
 {
-	char	*text[5] = {"./texture/1.xpm", "./texture/2.xpm", "./texture/3.xpm",
-			"./texture/4.xpm", "./texture/5.xpm"};
+	char	*text[5];
 	int		i;
 
+	text[0] = game->ea_texture;
+	text[1] = game->so_texture;
+	text[2] = game->no_texture;
+	text[3] = game->we_texture;
+	text[4] = "./texture/5.xpm";
 	i = 0;
 	if (!mlx)
 		return_error("mlx non initialisÃ© !");
@@ -53,15 +57,14 @@ void	ft_init_text1(t_jeux *jeux, t_cub3d *game, void *mlx)
 				&game->texture[i].width, &game->texture[i].height);
 		if (!game->texture[i].img)
 		{
-			return_free_error("Ivalid Texture image", game);
 			mlx_destroy_display(jeux->mlx);
+			return_free_error("Ivalid Texture image", game);
 		}
 		game->texture[i].addr = mlx_get_data_addr(game->texture[i].img,
 				&game->texture[i].bpp, &game->texture[i].size_line,
 				&game->texture[i].endian);
 		i++;
 	}
-	
 }
 
 void	ft_init_text2(t_jeux *jeux, t_cub3d *game, void *mlx)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   move.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/19 11:31:54 by salaoui           #+#    #+#             */
+/*   Updated: 2025/03/19 11:31:55 by salaoui          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cube3d.h"
 
 void	rotate_player(t_jeux *jeux, float angle_rotation)
@@ -57,4 +69,33 @@ void	move_player(t_jeux *jeux)
 		jeux->cub.player.player_x = move.next_x;
 	if (no_walls(x_player, move.next_y, jeux->cub.cub_map))
 		jeux->cub.player.player_y = move.next_y;
+}
+
+int	ft_porte(t_jeux *jeux)
+{
+	int	map[2];
+	int	dy;
+	int	dx;
+	int	check[2];
+
+	map[0] = (int)(jeux->cub.player.player_x / 50);
+	map[1] = (int)(jeux->cub.player.player_y / 50);
+	dy = -1;
+	while (dy <= 1)
+	{
+		dx = -1;
+		while (dx <= 1)
+		{
+			check[0] = map[0] + dx;
+			check[1] = map[1] + dy;
+			if (check[0] < 0 || check[1] < 0 || check[0] >= WIDTH / 50
+				|| check[1] >= HEIGHT / 50)
+				continue ;
+			if (jeux->cub.cub_map[check[1]][check[0]] == 'D')
+				return (switch_door(jeux, check[1], check[0]));
+			dx++;
+		}
+		dy++;
+	}
+	return (0);
 }

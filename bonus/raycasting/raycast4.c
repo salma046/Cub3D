@@ -65,3 +65,9 @@ void	ft_floor(t_jeux *game, int i, int fin_pxl)
 		y++;
 	}
 }
+
+int	switch_door(t_jeux *jeux, int j, int i)
+{
+	jeux->cub.cub_map[j][i] = '0';
+	return (2);
+}

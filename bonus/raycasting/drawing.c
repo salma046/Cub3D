@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   drawing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/19 11:28:50 by salaoui           #+#    #+#             */
+/*   Updated: 2025/03/19 11:28:51 by salaoui          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cube3d.h"
 
 void	draw_player(int player_x, int player_y, int diametre, t_jeux *jeux)
@@ -20,38 +32,30 @@ void	draw_player(int player_x, int player_y, int diametre, t_jeux *jeux)
 	}
 }
 
-int	check_distance(int mini_x, int mini_y, int wall_y, int wall_x, t_jeux *jeux,
-		int color)
+int	check_distance(t_wall wall, t_jeux *jeux, int color)
 {
-	int	p_y;
-	int	p_x;
+	int	pl_pos[2];
+	int	new_wall[2];
 	int	i;
 	int	j;
-	int	new_wallx;
-	int	new_wally;
 
-	p_y = jeux->cub.player.player_y / 50;
-	p_x = jeux->cub.player.player_x / 50;
-	if (abs(p_y - wall_y) <= 7 && abs(p_x - wall_x) <= 13)
+	pl_pos[0] = jeux->cub.player.player_y / 50;
+	pl_pos[1] = jeux->cub.player.player_x / 50;
+	if (abs(pl_pos[0] - wall.wall_y) <= 7 && abs(pl_pos[1] - wall.wall_x) <= 13)
 	{
-		new_wallx = mini_x + ((wall_x - p_x) * 20);
-		new_wally = mini_y + ((wall_y - p_y) * 20);
-		i = 0;
-		while (i < 20)
+		new_wall[0] = wall.mini_x + ((wall.wall_x - pl_pos[1]) * 20);
+		new_wall[1] = wall.mini_y + ((wall.wall_y - pl_pos[0]) * 20);
+		i = -1;
+		while (++i < 20)
 		{
-			j = 0;
-			while (j < 20)
+			j = -1;
+			while (++j < 20)
 			{
-				if (((new_wallx + j) <= (WIDTH / 5) + 5 && (new_wallx
-							+ j) >= 15)
-					&& ((new_wally + i) <= (HEIGHT / 5) + 5 && (new_wally
-							+ i >= 15)))
-				{
-					ft_put_pixel(new_wallx + j, new_wally + i, color, jeux);
-				}
-				j++;
+				if (((new_wall[0] + j) <= (WIDTH / 5) + 5 && (new_wall[0]
+							+ j) >= 15) && ((new_wall[1] + i) <= (HEIGHT / 5)
+						+ 5 && (new_wall[1] + i >= 15)))
+					ft_put_pixel(new_wall[0] + j, new_wall[1] + i, color, jeux);
 			}
-			i++;
 		}
 	}
 	return (0);
@@ -59,21 +63,26 @@ int	check_distance(int mini_x, int mini_y, int wall_y, int wall_x, t_jeux *jeux,
 
 void	draw_walls(int p_x, int p_y, t_jeux *jeux)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	t_wall	wall;
 
+	wall.mini_x = p_x;
+	wall.mini_y = p_y;
 	i = 0;
 	while (jeux->cub.cub_map[i])
 	{
 		j = 0;
 		while (jeux->cub.cub_map[i][j])
 		{
+			wall.wall_x = j;
+			wall.wall_y = i;
 			if (jeux->cub.cub_map[i][j] == '1'
 				|| jeux->cub.cub_map[i][j] == 'D')
-				check_distance(p_x, p_y, i, j, jeux, 0x3291a8);
+				check_distance(wall, jeux, 0x3291a8);
 			if (jeux->cub.cub_map[i][j] == '0'
 				|| jeux->cub.cub_map[i][j] == jeux->cub.player.dir_player)
-				check_distance(p_x, p_y, i, j, jeux, 0xd1b2b0);
+				check_distance(wall, jeux, 0xd1b2b0);
 			j++;
 		}
 		i++;

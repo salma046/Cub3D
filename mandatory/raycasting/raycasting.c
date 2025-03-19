@@ -81,4 +81,3 @@ int	my_raycasting_function(t_jeux *game)
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	return (0);
 }
-

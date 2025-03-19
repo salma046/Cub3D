@@ -26,28 +26,40 @@ typedef struct s_var
 	float			next;
 	float			start;
 	int				i;
-	int				width;
-	int				height;
+	int				w;
+	int				h;
 
 }					t_var;
 
 typedef struct s_ray
 {
-	float cos_angle, sin_angle, fb_x, fb_y, ray_x, ray_y;
-	float distance, corr_dst;
-	int march_x, march_y;
-	float ch_x, ch_y;
-	int				is_vertical_hit;
-	int cast_x, cast_y;
-	int map_x, map_y;
-	float			impact_x;
+	float	cos_angle;
+	float	sin_angle;
+	float	fb_x;
+	float	fb_y;
+	float	ray_x;
+	float	ray_y;
+	float	distance;
+	float	corr_dst;
+	int		march_x;
+	int		march_y;
+	float	ch_x;
+	float	ch_y;
+	int		is_vertical_hit;
+	int		cast_x;
+	int		cast_y;
+	int		map_x;
+	int		map_y;
+	float	impact_x;
 }					t_ray;
 
 typedef struct s_rendering
 {
-	int txt_i, txt_x;
-	int				hautr_mur;
-	int dbt_pxl, fin_pxl;
+	int	txt_i;
+	int	txt_x;
+	int	hautr_mur;
+	int	dbt_pxl;
+	int	fin_pxl;
 }					t_rendering;
 
 typedef struct s_player
@@ -105,11 +117,19 @@ typedef enum s_enum
 
 typedef struct s_movement
 {
-	int				move_cos;
-	int				move_sin;
-	float 			next_x;
-	float 				next_y;
+	int		move_cos;
+	int		move_sin;
+	float	next_x;
+	float	next_y;
 }					t_movement;
+
+typedef struct s_wall
+{
+	int		mini_x;
+	int		mini_y;
+	int		wall_x;
+	int		wall_y;
+}					t_wall;
 
 typedef struct s_texture
 {
@@ -237,7 +257,8 @@ void				ft_init_r(t_jeux *game, float start, t_ray *ray);
 float				ft_calc_distan(t_jeux *game, t_ray *ray);
 int					my_raycasting_function(t_jeux *game);
 void				ft_coord(t_ray *ray, int *txt_i, int *txt_x, t_jeux *game);
-
+int					ft_porte(t_jeux *jeux);
 void				cast_ray(t_jeux *game, float start, int i);
+int					switch_door(t_jeux *jeux, int j, int i);
 
 #endif

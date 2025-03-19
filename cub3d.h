@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/19 11:22:39 by salaoui           #+#    #+#             */
+/*   Updated: 2025/03/19 11:22:40 by salaoui          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -21,35 +33,36 @@
 # define LEFT 65361
 # define RIGHT 65363
 
-typedef struct s_var
+typedef struct s_ray
 {
-	float	next;
-	float	start;
-	int		i;
-	int		width;
-	int		height;
+	float	cos_angle;
+	float	sin_angle;
+	float	fb_x;
+	float	fb_y;
+	float	ray_x;
+	float	ray_y;
+	float	distance;
+	float	corr_dst;
+	int		march_x;
+	int		march_y;
+	float	ch_x;
+	float	ch_y;
+	int		is_vertical_hit;
+	int		cast_x;
+	int		cast_y;
+	int		map_x;
+	int		map_y;
+	float	impact_x;
+}					t_ray;
 
-}			t_var;
-
-typedef struct s_ray 
+typedef struct s_rendering
 {
-    float cos_angle, sin_angle, fb_x, fb_y, ray_x, ray_y;
-    float distance, corr_dst;
-    int march_x, march_y;
-    float ch_x, ch_y;
-    int is_vertical_hit;
-    int cast_x, cast_y;
-    int map_x, map_y;  
-    float impact_x;
-} t_ray;
-
-typedef struct s_rendering 
-{
-    int txt_i, txt_x;
-    int hautr_mur;
-    int dbt_pxl, fin_pxl;
-} t_rendering;
-
+	int	txt_i;
+	int	txt_x;
+	int	hautr_mur;
+	int	dbt_pxl;
+	int	fin_pxl;
+}					t_rendering;
 
 typedef struct s_player
 {
@@ -106,8 +119,8 @@ typedef enum s_enum
 
 typedef struct s_movement
 {
-	int	move_cos;
-	int	move_sin;
+	int				move_cos;
+	int				move_sin;
 }					t_movement;
 
 typedef struct s_texture
@@ -128,6 +141,8 @@ typedef struct s_cub3d
 	char			*we_texture;
 	char			*ea_texture;
 	int				f_color[3];
+	// unsigned int	floor_co;
+	// unsigned int	ceil_co;
 	int				c_color[3];
 	char			**cub;
 	char			**cub_map;
@@ -169,8 +184,8 @@ typedef struct s_jeux
 
 ////////////////////////////////////
 /*Parsing*/
-void	ft_init_text1(t_jeux *jeux, t_cub3d *game, void *mlx);
-void	ft_init_text2(t_jeux *jeux, t_cub3d *game, void *mlx);
+void				ft_init_text1(t_jeux *jeux, t_cub3d *game, void *mlx);
+void				ft_init_text2(t_jeux *jeux, t_cub3d *game, void *mlx);
 int					check_file_valid(char *file);
 void				check_file(int ac, char *file);
 void				init_data(t_cub3d *game, t_jeux *jeux);

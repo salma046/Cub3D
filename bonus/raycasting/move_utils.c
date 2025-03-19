@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   move_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/19 11:29:45 by salaoui           #+#    #+#             */
+/*   Updated: 2025/03/19 11:29:46 by salaoui          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cube3d.h"
 
 void	ft_clean_mlx(t_jeux *jeux)
@@ -9,7 +21,7 @@ void	ft_clean_mlx(t_jeux *jeux)
 	mlx_destroy_image(jeux->mlx, jeux->img);
 	mlx_destroy_image(jeux->mlx, jeux->cub.txt_ciel.img);
 	mlx_destroy_image(jeux->mlx, jeux->cub.txt_plat.img);
-	while (i < 4)
+	while (i < 5)
 	{
 		mlx_destroy_image(jeux->mlx, jeux->cub.texture[i].img);
 		i++;
@@ -29,45 +41,10 @@ void	ft_clean_mlx(t_jeux *jeux)
 	free(jeux->cub.player.height_player);
 }
 
-void ft_porte(t_jeux *jeux)
-{
-    int map_x;
-    int map_y;
-	int dy;
-	int dx;
-	int check_x;
-	int check_y;
-
-	map_x = (int)(jeux->cub.player.player_x / 50);
-	map_y = (int)(jeux->cub.player.player_y / 50);
-	dy = -1;
-    while (dy <= 1)
-    {
-		dx = -1;
-        while (dx <= 1)
-        {
-            check_x = map_x + dx;
-            check_y = map_y + dy;
-
-            if (check_x < 0 || check_y < 0 || check_x >= WIDTH/50 || check_y >= HEIGHT/50)
-                continue;
-            if (jeux->cub.cub_map[check_y][check_x] == 'D')
-            {
-                jeux->cub.cub_map[check_y][check_x] = '0'; 
-                return;
-            }
-			dx++;
-        }
-		dy++;
-    }
-}
-
 int	handle_key_press(int key_press, t_jeux *jeux)
 {
 	if (key_press == RIGHT)
-	{
 		jeux->keys.rrotate = 1;
-	}
 	if (key_press == LEFT)
 		jeux->keys.lrotate = 1;
 	if (key_press == 119)
@@ -78,8 +55,8 @@ int	handle_key_press(int key_press, t_jeux *jeux)
 		jeux->keys.right = 1;
 	if (key_press == 97)
 		jeux->keys.left = 1;
-	if (key_press == 101) 
-        ft_porte(jeux);
+	if (key_press == 101)
+		ft_porte(jeux);
 	if (key_press == 65307)
 	{
 		ft_clean_mlx(jeux);
