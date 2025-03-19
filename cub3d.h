@@ -6,7 +6,7 @@
 /*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:22:39 by salaoui           #+#    #+#             */
-/*   Updated: 2025/03/19 11:22:40 by salaoui          ###   ########.fr       */
+/*   Updated: 2025/03/19 11:47:43 by salaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,8 +141,8 @@ typedef struct s_cub3d
 	char			*we_texture;
 	char			*ea_texture;
 	int				f_color[3];
-	// unsigned int	floor_co;
-	// unsigned int	ceil_co;
+	unsigned int	floor_co;
+	unsigned int	ceil_co;
 	int				c_color[3];
 	char			**cub;
 	char			**cub_map;

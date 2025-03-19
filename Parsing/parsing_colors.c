@@ -6,7 +6,7 @@
 /*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:27:05 by salaoui           #+#    #+#             */
-/*   Updated: 2025/03/19 11:27:06 by salaoui          ###   ########.fr       */
+/*   Updated: 2025/03/19 11:48:35 by salaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	parce_color(char *color, int *target_color)
 	int		i;
 	int		j;
 	int		count;
-	char	my_color[4];
+	char	my_color[5];
 	int		my_int;
 
 	i = 0;
@@ -65,9 +65,9 @@ int	parce_color(char *color, int *target_color)
 			return (free(color), 0);
 		target_color[i++] = my_int;
 	}
-	if (color[count] == '\0' && i == 3)
-		return (free(color), 1);
-	return (free(color), 0);
+	if (color[count] == '\0' && i == 4)
+		return (free(color), 0);
+	return (free(color), 1);
 }
 
 int	parse_fc_colors(char *colorf, char *colorc, t_cub3d *game)
@@ -85,5 +85,9 @@ int	parse_fc_colors(char *colorf, char *colorc, t_cub3d *game)
 		return (0);
 	if (checker == 2 && parce_color(colorc, game->c_color) == 0)
 		return (0);
+	if (checker == 1)
+		game->floor_co = (game->f_color[0] << 16) + (game->f_color[1] << 8) + game->f_color[2];
+	if (checker == 2)
+		game->ceil_co = (game->c_color[0] << 16) + (game->c_color[1] << 8) + game->c_color[2];
 	return (1);
 }

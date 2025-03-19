@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibahouch <ibahouch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 10:20:24 by bimane            #+#    #+#             */
-/*   Updated: 2025/03/18 10:05:43 by ibahouch         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:49:48 by salaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,23 +70,14 @@ void	perform_dda(t_ray *ray, char **cub_map)
 	}
 }
 
-void	ft_soll(t_jeux *game, int i, int dbt_pxl)
+void	ft_soll(t_jeux *game, int i, int fin_pxl)
 {
 	int	y;
-	int	txt_x;
-	int	txt_y;
-	int	coll;
 
-	y = 0;
-	while (y < dbt_pxl)
+	y = fin_pxl;
+	while (y < HEIGHT)
 	{
-		txt_x = (i * game->cub.txt_ciel.width) / WIDTH;
-		txt_y = (y * game->cub.txt_ciel.height) / (HEIGHT / 2);
-		coll = *(int *)(game->cub.txt_ciel.addr + (txt_y
-					* game->cub.txt_ciel.size_line + txt_x
-					* (game->cub.txt_ciel.bpp / 8)));
-		*(int *)(game->data + (y * game->size_line + i * (game->bpp
-						/ 8))) = coll;
+		ft_put_pixel(i, y, game->cub.ceil_co, game);
 		y++;
 	}
 }
