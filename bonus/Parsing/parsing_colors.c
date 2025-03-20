@@ -6,7 +6,7 @@
 /*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:32:24 by salaoui           #+#    #+#             */
-/*   Updated: 2025/03/19 11:32:25 by salaoui          ###   ########.fr       */
+/*   Updated: 2025/03/19 13:25:27 by salaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	parce_color(char *color, int *target_color)
 	int		i;
 	int		j;
 	int		count;
-	char	my_color[4];
+	char	my_color[5];
 	int		my_int;
 
 	i = 0;
@@ -65,9 +65,9 @@ int	parce_color(char *color, int *target_color)
 			return (free(color), 0);
 		target_color[i++] = my_int;
 	}
-	if (color[count] == '\0' && i == 3)
-		return (free(color), 1);
-	return (free(color), 0);
+	if (color[count] == '\0' && i == 4)
+		return (free(color), 0);
+	return (free(color), 1);
 }
 
 int	parse_fc_colors(char *colorf, char *colorc, t_cub3d *game)

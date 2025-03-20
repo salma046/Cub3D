@@ -6,7 +6,7 @@
 /*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:27:05 by salaoui           #+#    #+#             */
-/*   Updated: 2025/03/19 11:48:35 by salaoui          ###   ########.fr       */
+/*   Updated: 2025/03/20 12:59:29 by salaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,33 +41,41 @@ int	check_fc_empty(char *colorf, char *colorc, t_cub3d *game)
 	return (0);
 }
 
-int	parce_color(char *color, int *target_color)
+void	free_chunk(char **chunks, char *color)
 {
-	int		i;
-	int		j;
-	int		count;
-	char	my_color[5];
-	int		my_int;
+	int	i;
 
 	i = 0;
-	j = 0;
-	count = 0;
-	while (color[count] != '\0' && i < 3)
+	while (chunks[i])
 	{
-		j = 0;
-		while (color[count] != '\0' && color[count] != ',' && j <= 3)
-			my_color[j++] = color[count++];
-		if (color[count] == ',')
-			count++;
-		my_color[j] = '\0';
-		my_int = ft_my_atoi(my_color);
-		if (my_int < 0 || my_int > 255)
-			return (free(color), 0);
-		target_color[i++] = my_int;
+		free(chunks[i]);
+		i++;
 	}
-	if (color[count] == '\0' && i == 4)
-		return (free(color), 0);
-	return (free(color), 1);
+	free(color);
+	free(chunks);
+}
+
+int	parce_color(char *color, int *target_color)
+{
+	char	**chunks;
+	int		my_int;
+	int		i;
+
+	chunks = ft_split(color, ',');
+	i = 0;
+	while (chunks[i])
+	{
+		my_int = ft_my_atoi(chunks[i]);
+		if (my_int < 0 || my_int > 255)
+			return (free_chunk(chunks, color), 0);
+		else
+			target_color[i] = my_int;
+		i++;
+	}
+	free_chunk(chunks, color);
+	if (i != 3)
+		return (0);
+	return (1);
 }
 
 int	parse_fc_colors(char *colorf, char *colorc, t_cub3d *game)
@@ -86,8 +94,10 @@ int	parse_fc_colors(char *colorf, char *colorc, t_cub3d *game)
 	if (checker == 2 && parce_color(colorc, game->c_color) == 0)
 		return (0);
 	if (checker == 1)
-		game->floor_co = (game->f_color[0] << 16) + (game->f_color[1] << 8) + game->f_color[2];
+		game->floor_co = (game->f_color[0] << 16) + (game->f_color[1] << 8)
+			+ game->f_color[2];
 	if (checker == 2)
-		game->ceil_co = (game->c_color[0] << 16) + (game->c_color[1] << 8) + game->c_color[2];
+		game->ceil_co = (game->c_color[0] << 16) + (game->c_color[1] << 8)
+			+ game->c_color[2];
 	return (1);
 }

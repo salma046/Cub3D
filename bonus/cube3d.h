@@ -216,6 +216,7 @@ int					fill_cub_map(t_cub3d *game, int i);
 int					parse_fc_colors(char *colorf, char *colorc, t_cub3d *game);
 int					is_this_map_valid(t_cub3d *game);
 void				replace_empty_chars(t_cub3d *game);
+int					check_one_in_edges(t_cub3d *game);
 
 ////////////////////////////////////
 /*Cleaning*/

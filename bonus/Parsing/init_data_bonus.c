@@ -6,7 +6,7 @@
 /*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:32:12 by salaoui           #+#    #+#             */
-/*   Updated: 2025/03/19 11:32:13 by salaoui          ###   ########.fr       */
+/*   Updated: 2025/03/20 11:50:30 by salaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int	check_map(t_cub3d *game)
 	if (player_count != 1)
 		return_free_error("\nMultiple players found!", game);
 	valid_chars(game);
+	if (check_one_in_edges(game) == 0)
+		return_free_error("INvalid Map!", game);
 	make_a_copy(game);
 	replace_empty_chars(game);
 	if (!is_this_map_valid(game))
