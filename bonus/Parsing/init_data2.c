@@ -6,7 +6,7 @@
 /*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:32:15 by salaoui           #+#    #+#             */
-/*   Updated: 2025/03/21 17:12:00 by salaoui          ###   ########.fr       */
+/*   Updated: 2025/03/21 17:52:05 by salaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,16 @@ int	check_doors(t_cub3d *game)
 	while (read_map[i])
 	{
 		j = 0;
-		while (read_map[i][j] && ft_isspace(read_map[i][j], 1))
+		while (read_map[i][j])
+		{
+			if (read_map[i][j] == 'D')
+			{
+				if (!((read_map[i][j - 1] == '1' && read_map[i][j + 1] == '1')
+					|| (read_map[i - 1][j] == '1' && read_map[i + 1][j] == '1')))
+					return (0);	
+			}
 			j++;
-		if (read_map[i][j] == 'D')
-			return (0);
-		while (read_map[i][j] && ft_isspace(read_map[i][j], 1))
-			j++;
-		if (!read_map[i][j] && read_map[i][j - 1] == 'D')
-			return (0);
+		}
 		i++;
 	}
 	return (1);
