@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube3d.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibahouch <ibahouch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 10:20:24 by bimane            #+#    #+#             */
-/*   Updated: 2025/03/21 07:16:01 by ibahouch         ###   ########.fr       */
+/*   Updated: 2025/03/21 15:27:20 by salaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,7 @@ void				replace_empty_chars(t_cub3d *game);
 int					return_error(char *error_str);
 int					return_free_error(char *error_str, t_cub3d *game);
 void				ft_clean_mlx(t_jeux *jeux);
-int					check_one_in_edges(t_cub3d *game);
+int					check_doors(t_cub3d *game);
 /////////////////////////////////////
 /*RayCasting */
 void				clear_image(t_jeux *game);

@@ -6,7 +6,7 @@
 /*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:32:15 by salaoui           #+#    #+#             */
-/*   Updated: 2025/03/20 11:53:47 by salaoui          ###   ########.fr       */
+/*   Updated: 2025/03/21 17:12:00 by salaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,46 +69,24 @@ void	make_a_copy(t_cub3d *game)
 	game->map_width = largestline;
 }
 
-int	check_edges(char **map, int i, int j, int height)
+int	check_doors(t_cub3d *game)
 {
-	while (map[i][j])
-	{
-		if (i == 0 || i == height - 1)
-		{
-			while (ft_isspace(map[i][j], 1))
-				j++;
-			if (map[i][j] != '\0' && map[i][j] != '\n' && map[i][j] != '1')
-				return (0);
-		}
-		j++;
-	}
-	if (map[i][j - 1] == '\n' && map[i][j - 2] != '1')
-		return (0);
-	return (1);
-}
-
-int	check_one_in_edges(t_cub3d *game)
-{
-	char	**read_cubmap;
+	char	**read_map;
 	int		i;
 	int		j;
 
 	i = 0;
-	read_cubmap = game->cub_map;
-	while (read_cubmap[i])
+	read_map = game->cub_map;
+	while (read_map[i])
 	{
 		j = 0;
-		while (read_cubmap[i] && !is_empty(read_cubmap[i]))
-		{
-			i++;
-			if (!read_cubmap[i])
-				return (1);
-		}
-		while (read_cubmap[i][j + 1] && ft_isspace(read_cubmap[i][j], 0))
+		while (read_map[i][j] && ft_isspace(read_map[i][j], 1))
 			j++;
-		if (read_cubmap[i][j] && read_cubmap[i][j] != '1')
+		if (read_map[i][j] == 'D')
 			return (0);
-		if (!check_edges(read_cubmap, i, j, game->map_heigh))
+		while (read_map[i][j] && ft_isspace(read_map[i][j], 1))
+			j++;
+		if (!read_map[i][j] && read_map[i][j - 1] == 'D')
 			return (0);
 		i++;
 	}

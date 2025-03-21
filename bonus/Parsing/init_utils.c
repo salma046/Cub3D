@@ -6,7 +6,7 @@
 /*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:32:22 by salaoui           #+#    #+#             */
-/*   Updated: 2025/03/19 11:32:23 by salaoui          ###   ########.fr       */
+/*   Updated: 2025/03/21 17:10:55 by salaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	is_this_map_valid(t_cub3d *game)
 		while (parsing[i][j])
 		{
 			if (parsing[i][j] == game->player.dir_player
-				|| parsing[i][j] == '0')
+				|| parsing[i][j] == '0' || parsing[i][j] == 'D')
 			{
 				if (!check_no_spaces(parsing, i, j))
 					return (0);
