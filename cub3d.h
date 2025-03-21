@@ -6,7 +6,7 @@
 /*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:22:39 by salaoui           #+#    #+#             */
-/*   Updated: 2025/03/19 11:47:43 by salaoui          ###   ########.fr       */
+/*   Updated: 2025/03/21 15:05:19 by salaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,7 @@ int					check_for_player(t_cub3d *game);
 void				make_a_copy(t_cub3d *game);
 char				**read_file(char *file);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
+char				**ft_split(char const *s, char c);
 void				is_whitespaces(char **line);
 int					ft_skipspace(char *line, int j);
 int					ft_isspace(char c, int type);
