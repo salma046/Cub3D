@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
+/*   By: ibahouch <ibahouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:31:54 by salaoui           #+#    #+#             */
-/*   Updated: 2025/03/19 11:31:55 by salaoui          ###   ########.fr       */
+/*   Updated: 2025/03/20 14:37:11 by ibahouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,26 +73,21 @@ void	move_player(t_jeux *jeux)
 
 int	ft_porte(t_jeux *jeux)
 {
-	int	map[2];
+	int	map_x;
+	int	map_y;
 	int	dy;
 	int	dx;
-	int	check[2];
 
-	map[0] = (int)(jeux->cub.player.player_x / 50);
-	map[1] = (int)(jeux->cub.player.player_y / 50);
+	map_x = (int)(jeux->cub.player.player_x / 50);
+	map_y = (int)(jeux->cub.player.player_y / 50);
 	dy = -1;
 	while (dy <= 1)
 	{
 		dx = -1;
 		while (dx <= 1)
 		{
-			check[0] = map[0] + dx;
-			check[1] = map[1] + dy;
-			if (check[0] < 0 || check[1] < 0 || check[0] >= WIDTH / 50
-				|| check[1] >= HEIGHT / 50)
-				continue ;
-			if (jeux->cub.cub_map[check[1]][check[0]] == 'D')
-				return (switch_door(jeux, check[1], check[0]));
+			if (ft_check_door(jeux, map_x + dx, map_y + dy))
+				return (1);
 			dx++;
 		}
 		dy++;

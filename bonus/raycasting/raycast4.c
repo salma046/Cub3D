@@ -6,7 +6,7 @@
 /*   By: ibahouch <ibahouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 10:20:24 by bimane            #+#    #+#             */
-/*   Updated: 2025/03/18 09:02:09 by ibahouch         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:37:37 by ibahouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,20 @@ int	switch_door(t_jeux *jeux, int j, int i)
 {
 	jeux->cub.cub_map[j][i] = '0';
 	return (2);
+}
+
+void	ft_port2(t_jeux *game, int x, int y)
+{
+	if (game->cub.cub_map[y][x] == 'D')
+		game->cub.cub_map[y][x] = '0';
+}
+
+int	ft_check_door(t_jeux *jeux, int check_x, int check_y)
+{
+	if (jeux->cub.cub_map[check_y][check_x] == 'D')
+	{
+		ft_port2(jeux, check_x, check_y);
+		return (1);
+	}
+	return (0);
 }

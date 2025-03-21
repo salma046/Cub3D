@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cube3d.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ibahouch <ibahouch@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/16 10:20:24 by bimane            #+#    #+#             */
+/*   Updated: 2025/03/21 07:16:01 by ibahouch         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUBE3D_H
 # define CUBE3D_H
 
@@ -216,14 +228,13 @@ int					fill_cub_map(t_cub3d *game, int i);
 int					parse_fc_colors(char *colorf, char *colorc, t_cub3d *game);
 int					is_this_map_valid(t_cub3d *game);
 void				replace_empty_chars(t_cub3d *game);
-int					check_one_in_edges(t_cub3d *game);
 
 ////////////////////////////////////
 /*Cleaning*/
 int					return_error(char *error_str);
 int					return_free_error(char *error_str, t_cub3d *game);
 void				ft_clean_mlx(t_jeux *jeux);
-
+int					check_one_in_edges(t_cub3d *game);
 /////////////////////////////////////
 /*RayCasting */
 void				clear_image(t_jeux *game);
@@ -261,5 +272,7 @@ void				ft_coord(t_ray *ray, int *txt_i, int *txt_x, t_jeux *game);
 int					ft_porte(t_jeux *jeux);
 void				cast_ray(t_jeux *game, float start, int i);
 int					switch_door(t_jeux *jeux, int j, int i);
+void				ft_port2(t_jeux *game, int x, int y);
+int					ft_check_door(t_jeux *jeux, int check_x, int check_y);
 
 #endif

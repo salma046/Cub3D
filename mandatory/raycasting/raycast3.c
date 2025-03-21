@@ -6,7 +6,7 @@
 /*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 10:20:24 by bimane            #+#    #+#             */
-/*   Updated: 2025/03/20 14:00:45 by salaoui          ###   ########.fr       */
+/*   Updated: 2025/03/19 11:49:48 by salaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,14 @@ void	perform_dda(t_ray *ray, char **cub_map)
 	}
 }
 
-void	ft_soll(t_jeux *game, int i, int dbt_pxl)
+void	ft_soll(t_jeux *game, int i, int fin_pxl)
 {
 	int	y;
 
-	y = 0;
-	while (y < dbt_pxl)
+	y = fin_pxl;
+	while (y < HEIGHT)
 	{
-		*(int *)(game->data + (y * game->size_line + i * (game->bpp
-						/ 8))) = game->cub.ceil_co;
+		ft_put_pixel(i, y, game->cub.ceil_co, game);
 		y++;
 	}
 }

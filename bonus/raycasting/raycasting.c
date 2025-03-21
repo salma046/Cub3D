@@ -6,7 +6,7 @@
 /*   By: ibahouch <ibahouch@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 10:20:24 by bimane            #+#    #+#             */
-/*   Updated: 2025/03/18 10:16:03 by ibahouch         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:35:17 by ibahouch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_coord(t_ray *ray, int *txt_i, int *txt_x, t_jeux *game)
 {
-	if (!ft_norm_ray(ray, game))
+	if (ray->is_vertical_hit == 2)
 		*txt_i = 4;
 	else if (ray->is_vertical_hit)
 	{
@@ -30,10 +30,11 @@ void	ft_coord(t_ray *ray, int *txt_i, int *txt_x, t_jeux *game)
 		else
 			*txt_i = 3;
 	}
-	if (ray->is_vertical_hit)
+	if (game->cub.cub_map[ray->map_y][ray->map_x] == 'D')
+		*txt_i = 4;
+	ray->impact_x = ray->ray_x;
+	if (ray->is_vertical_hit == 1)
 		ray->impact_x = ray->ray_y;
-	else
-		ray->impact_x = ray->ray_x;
 	ray->impact_x = fmod(ray->impact_x, 50);
 	*txt_x = (int)((ray->impact_x / 50.0) * (game->cub.texture[*txt_i].width
 				- 1));
