@@ -6,7 +6,7 @@
 /*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:27:53 by salaoui           #+#    #+#             */
-/*   Updated: 2025/03/19 11:27:54 by salaoui          ###   ########.fr       */
+/*   Updated: 2025/03/22 12:57:41 by salaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int ac, char *av[])
 	game = &jeux.cub;
 	game->cub = read_file(av[1]);
 	if (!game->cub)
-		return_error("Invalid map!");
+		return_error("\nInvalid map!");
 	parsing(game, &jeux);
 	jeux.mlx = mlx_init();
 	ft_init_text1(&jeux, game, jeux.mlx);

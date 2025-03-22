@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibahouch <ibahouch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 10:20:24 by bimane            #+#    #+#             */
-/*   Updated: 2025/03/18 10:06:56 by ibahouch         ###   ########.fr       */
+/*   Updated: 2025/03/22 12:59:01 by salaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ void	ft_init_text1(t_jeux *jeux, t_cub3d *game, void *mlx)
 	text[3] = game->we_texture;
 	i = 0;
 	if (!mlx)
-		return_error("mlx non initialisÃ© !");
+		return_error("\nmlx non initialisÃ© !");
 	while (i < 4)
 	{
 		game->texture[i].img = mlx_xpm_file_to_image(mlx, text[i],
 				&game->texture[i].width, &game->texture[i].height);
 		if (!game->texture[i].img)
 		{
-			return_free_error("Ivalid Texture image", game);
+			return_free_error("\nIvalid Texture image", game);
 			mlx_destroy_display(jeux->mlx);
 		}
 		game->texture[i].addr = mlx_get_data_addr(game->texture[i].img,
@@ -78,7 +78,7 @@ void	ft_init_text2(t_jeux *jeux, t_cub3d *game, void *mlx)
 	game->txt_ciel.img = mlx_xpm_file_to_image(mlx, cl, &game->txt_ciel.width,
 			&game->txt_ciel.height);
 	if (!game->txt_plat.img || !game->txt_ciel.img)
-		return_free_error("Ivalid Texture image", game);
+		return_free_error("\nIvalid Texture image", game);
 	game->txt_ciel.addr = mlx_get_data_addr(game->txt_ciel.img,
 			&game->txt_ciel.bpp, &game->txt_ciel.size_line,
 			&game->txt_ciel.endian);

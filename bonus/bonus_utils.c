@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   bonus_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibahouch <ibahouch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 10:20:24 by bimane            #+#    #+#             */
-/*   Updated: 2025/03/20 12:17:32 by ibahouch         ###   ########.fr       */
+/*   Updated: 2025/03/22 13:18:09 by salaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
+
+char	no_door(char **map, int x, int y)
+{
+	if (map[x][y] == 'D')
+		return ('0');
+	else
+		return ('D');
+}
 
 void	ft_rota_sour(int dir, t_jeux *game, float rot)
 {

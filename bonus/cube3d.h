@@ -6,7 +6,7 @@
 /*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 10:20:24 by bimane            #+#    #+#             */
-/*   Updated: 2025/03/21 15:27:20 by salaoui          ###   ########.fr       */
+/*   Updated: 2025/03/22 13:18:26 by salaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,5 +274,6 @@ void				cast_ray(t_jeux *game, float start, int i);
 int					switch_door(t_jeux *jeux, int j, int i);
 void				ft_port2(t_jeux *game, int x, int y);
 int					ft_check_door(t_jeux *jeux, int check_x, int check_y);
+char				no_door(char **map, int x, int y);
 
 #endif

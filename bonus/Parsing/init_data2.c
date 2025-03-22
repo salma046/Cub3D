@@ -6,7 +6,7 @@
 /*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:32:15 by salaoui           #+#    #+#             */
-/*   Updated: 2025/03/21 17:52:05 by salaoui          ###   ########.fr       */
+/*   Updated: 2025/03/22 13:17:23 by salaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,9 @@ int	check_doors(t_cub3d *game)
 			if (read_map[i][j] == 'D')
 			{
 				if (!((read_map[i][j - 1] == '1' && read_map[i][j + 1] == '1')
-					|| (read_map[i - 1][j] == '1' && read_map[i + 1][j] == '1')))
-					return (0);	
+						|| (read_map[i - 1][j] == '1' && read_map[i
+							+ 1][j] == '1')))
+					return (0);
 			}
 			j++;
 		}

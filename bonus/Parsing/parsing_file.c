@@ -6,7 +6,7 @@
 /*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:32:27 by salaoui           #+#    #+#             */
-/*   Updated: 2025/03/19 11:32:28 by salaoui          ###   ########.fr       */
+/*   Updated: 2025/03/22 12:57:08 by salaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ void	cub_extention(char *file)
 
 	i = ft_strlen(file);
 	if (file[i - 4] != '.' || file[i - 3] != 'c')
-		return_error("invalid file extention!");
+		return_error("\ninvalid file extention!");
 	if (file[i - 2] != 'u' || file[i - 1] != 'b')
-		return_error("invalid file extention!");
+		return_error("\ninvalid file extention!");
 }
 
 int	check_file_valid(char *file)
@@ -86,7 +86,7 @@ int	check_file_valid(char *file)
 void	check_file(int ac, char *file)
 {
 	if (ac != 2)
-		return_error("Arguments not valid!");
+		return_error("\nArguments not valid!");
 	if (check_file_valid(file) == 0)
-		return_error("Cannot open file!");
+		return_error("\nCannot open file!");
 }

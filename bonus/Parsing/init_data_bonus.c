@@ -6,7 +6,7 @@
 /*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:32:12 by salaoui           #+#    #+#             */
-/*   Updated: 2025/03/21 17:48:50 by salaoui          ###   ########.fr       */
+/*   Updated: 2025/03/22 13:22:02 by salaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	check_map(t_cub3d *game)
 	replace_empty_chars(game);
 	if (!is_this_map_valid(game))
 		return (0);
-	if (check_doors(game) == 0 )
+	if (check_doors(game) == 0)
 		return_free_error("\nINvalid Door in map!", game);
 	direction(game);
 	if ((WIDTH > 1700 || WIDTH < 1000)

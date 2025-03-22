@@ -6,7 +6,7 @@
 /*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:27:03 by salaoui           #+#    #+#             */
-/*   Updated: 2025/03/19 11:27:04 by salaoui          ###   ########.fr       */
+/*   Updated: 2025/03/22 12:46:53 by salaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	fill_short_lines(t_cub3d *game, int i)
 				* sizeof(char));
 		if (!fill_line)
 			return ;
-		ft_memset(fill_line, '\0', game->map_width - curr_len);
+		ft_memset(fill_line, '-', game->map_width - curr_len);
 		fill_line[game->map_width - curr_len] = '\0';
 		n_str = ft_my_strjoin(read_copy[i], fill_line);
 		free(read_copy[i]);
@@ -69,13 +69,13 @@ int	check_no_spaces(char **map, int x, int y)
 {
 	if (x == 0 || map[x + 1] == NULL)
 		return (0);
-	if (map[x - 1][y] == ' ' || map[x - 1][y] == '\0')
+	if (map[x - 1][y] == ' ' || map[x - 1][y] == '-')
 		return (0);
-	if (map[x + 1][y] == ' ' || map[x + 1][y] == '\0')
+	if (map[x + 1][y] == ' ' || map[x + 1][y] == '-')
 		return (0);
-	if (map[x][y - 1] == ' ' || map[x][y - 1] == '\0')
+	if (map[x][y - 1] == ' ' || map[x][y - 1] == '-')
 		return (0);
-	if (map[x][y + 1] == ' ' || map[x][y + 1] == '\0')
+	if (map[x][y + 1] == ' ' || map[x][y + 1] == '-')
 		return (0);
 	return (1);
 }

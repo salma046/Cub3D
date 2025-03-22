@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibahouch <ibahouch@student.42.fr>          +#+  +:+       +#+        */
+/*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 10:20:24 by bimane            #+#    #+#             */
-/*   Updated: 2025/03/20 12:17:04 by ibahouch         ###   ########.fr       */
+/*   Updated: 2025/03/22 12:58:41 by salaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_init_text1(t_jeux *jeux, t_cub3d *game, void *mlx)
 	text[4] = "./texture/5.xpm";
 	i = 0;
 	if (!mlx)
-		return_error("mlx non initialisÃ© !");
+		return_error("\nmlx non initialisÃ© !");
 	while (i < 5)
 	{
 		game->texture[i].img = mlx_xpm_file_to_image(mlx, text[i],
@@ -58,7 +58,7 @@ void	ft_init_text1(t_jeux *jeux, t_cub3d *game, void *mlx)
 		if (!game->texture[i].img)
 		{
 			mlx_destroy_display(jeux->mlx);
-			return_free_error("Ivalid Texture image", game);
+			return_free_error("\nIvalid Texture image", game);
 		}
 		game->texture[i].addr = mlx_get_data_addr(game->texture[i].img,
 				&game->texture[i].bpp, &game->texture[i].size_line,
@@ -83,7 +83,7 @@ void	ft_init_text2(t_jeux *jeux, t_cub3d *game, void *mlx)
 	game->txt_ciel.img = mlx_xpm_file_to_image(mlx, cl, &game->txt_ciel.width,
 			&game->txt_ciel.height);
 	if (!game->txt_plat.img || !game->txt_ciel.img)
-		return_free_error("Ivalid Texture image", game);
+		return_free_error("\nIvalid Texture image", game);
 	game->txt_ciel.addr = mlx_get_data_addr(game->txt_ciel.img,
 			&game->txt_ciel.bpp, &game->txt_ciel.size_line,
 			&game->txt_ciel.endian);
