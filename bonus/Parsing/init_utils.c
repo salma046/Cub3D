@@ -6,7 +6,7 @@
 /*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:32:22 by salaoui           #+#    #+#             */
-/*   Updated: 2025/03/22 13:17:38 by salaoui          ###   ########.fr       */
+/*   Updated: 2025/03/23 16:44:20 by salaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,19 +67,15 @@ void	replace_empty_chars(t_cub3d *game)
 
 int	check_no_spaces(char **map, int x, int y)
 {
-	if (x == 0 || map[x + 1] == NULL)
+	if (x == 0 || y == 0 || map[x + 1] == NULL || map[x][y + 1] == '\0')
 		return (0);
-	if (map[x - 1][y] == ' ' || map[x - 1][y] == '-' || map[x
-		- 1][y] == no_door(map, x, y))
+	if (map[x - 1][y] == ' ' || map[x - 1][y] == '-')
 		return (0);
-	if (map[x + 1][y] == ' ' || map[x + 1][y] == '-' || map[x
-		+ 1][y] == no_door(map, x, y))
+	if (map[x + 1][y] == ' ' || map[x + 1][y] == '-')
 		return (0);
-	if (map[x][y - 1] == ' ' || map[x][y - 1] == '-' || map[x][y
-		- 1] == no_door(map, x, y))
+	if (map[x][y - 1] == ' ' || map[x][y - 1] == '-')
 		return (0);
-	if (map[x][y + 1] == ' ' || map[x][y + 1] == '-' || map[x][y
-		+ 1] == no_door(map, x, y))
+	if (map[x][y + 1] == ' ' || map[x][y + 1] == '-')
 		return (0);
 	return (1);
 }
@@ -97,12 +93,14 @@ int	is_this_map_valid(t_cub3d *game)
 		j = 0;
 		while (parsing[i][j])
 		{
-			if (parsing[i][j] == game->player.dir_player || parsing[i][j] == '0'
-				|| parsing[i][j] == 'D')
+			if (parsing[i][j] == game->player.dir_player
+					|| parsing[i][j] == '0')
 			{
 				if (!check_no_spaces(parsing, i, j))
 					return (0);
 			}
+			if (!no_edge(parsing, i, j))
+				return (0);
 			j++;
 		}
 		i++;

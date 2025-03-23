@@ -6,7 +6,7 @@
 /*   By: salaoui <salaoui@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 11:27:03 by salaoui           #+#    #+#             */
-/*   Updated: 2025/03/22 12:46:53 by salaoui          ###   ########.fr       */
+/*   Updated: 2025/03/23 16:43:13 by salaoui          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	replace_empty_chars(t_cub3d *game)
 
 int	check_no_spaces(char **map, int x, int y)
 {
-	if (x == 0 || map[x + 1] == NULL)
+	if (x == 0 || y == 0 || map[x + 1] == NULL || map[x][y + 1] == '\0')
 		return (0);
 	if (map[x - 1][y] == ' ' || map[x - 1][y] == '-')
 		return (0);
