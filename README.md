@@ -3,7 +3,7 @@
 > A **raycasting 3D engine** inspired by *Wolfenstein 3D*, developed as part of the **42 Common Core**.
 
 <p align="center">
-  <img src="assets/demo.gif" width="700" alt="cub3D demo">
+  <img src="texture/demo.png" width="700" alt="cub3D demo">
 </p>
 
 ---
@@ -69,13 +69,13 @@ make bonus
 ### 🎮 Run the Game
 Mandatory
 ```
-./cub3D map.cub
+./Cub3D map.cub
 ```
 Bonus
 ```
-./cub3D_bonus map_b.cub
+./Cub3D_bonus map_b.cub
 or
-./cub3D_bonus map1.cub
+./Cub3D_bonus map1.cub
 ```
 
 ---
